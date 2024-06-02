@@ -1,0 +1,32 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@src/layout/baseLayout.astro";
+export async function getStaticPaths() {
+  const blogs = await getCollection("blogs");
+  const blogsList = blogs.filter((item) => !item.data.draft);
+  return blogsList.map((entry) => {
+    return {
+      params: {
+        blog: entry.slug,
+      },
+      props: {
+        entry,
+      },
+    };
+  });
+}
+const { blog } = Astro.params;
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<BaseLayout title={blog}>
+  <main>
+    <div class="w-full flex flex-col items-center">
+      <h1 class="flex text-6xl">{blog}</h1>
+      <div class="prose w-[80%] max-w-fit prose-p:my-4">
+        {Content ? <Content /> : <Fragment set:html={entry.body} />}
+      </div>
+    </div>
+  </main>
+</BaseLayout>

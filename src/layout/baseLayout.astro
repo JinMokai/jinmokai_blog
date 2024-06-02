@@ -1,5 +1,5 @@
 ---
-
+const { title } = Astro.props;
 ---
 
 <html lang="en">
@@ -8,7 +8,7 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Jinmokai's blog</title>
+    <title>{title ? title : `Jinmokai's blog`}</title>
   </head>
   <body>
     <slot />
@@ -16,10 +16,13 @@
 </html>
 
 <style is:global>
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
   @layer base {
-    @tailwind base;
-    @tailwind components;
-    @tailwind utilities;
+    :root {
+      --code-bg: #f5f5f5;
+    }
   }
 </style>
 

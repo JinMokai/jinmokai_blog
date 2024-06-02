@@ -1,0 +1,72 @@
+---
+title: "鄱阳中学最早的照片及人物后记"
+pubDate: "2023-4-8"
+updateDate: ""
+description: "鄱阳中学历史目前已公开的最早的照片！"
+author: "ch_kai"
+image:
+  url: "/assets/content/鄱阳中学最早照片/1.jpeg"
+  alt: "鄱阳中学最早照片"
+tags: ["鄱阳中学"]
+draft: false
+---
+
+import { Image } from "astro:assets";
+import { Picture } from "astro:assets";
+import ImageTip from '@src/components/ui/ImageTip.astro'
+import Code from '@src/components/ui/Code.astro'
+import oneImage from "@src/assets/blogs/鄱阳中学最早的照片/1.jpeg";
+import twoImage from "@src/assets/blogs/鄱阳中学最早的照片/2.jpeg";
+
+# 溯源
+
+这张照片是目前关于鄱阳中学最早的照片，该照片出自赣州收藏家之手！根据收藏家描述，这张照片是民国时期流出的，当时鄱阳中学叫省立五中！这张照片三千一张后来公开在上饶市档案馆的百年映像二十年专栏。
+
+<ImageTip>
+  <Picture 
+    src={oneImage}
+    alt="1924年德兴旅饶同学会欢送朱（蕴华）李（锡畴）二君五中毕业摄影纪念"
+    formats={['avif', 'webp']}
+    slot={"image"}
+    class={"c-image"}
+  />
+  <span slot="tip">1924 年德兴旅饶同学会欢送朱（蕴华）李（锡畴）二君五中毕业摄影纪念</span>
+</ImageTip>
+
+<ImageTip>
+  <Picture  
+    src={twoImage} 
+    alt="德兴学子在芝山合影1924年"
+    formats={['avif', 'webp']}
+    slot={'image'}
+    class={'c-image'}
+  />
+  <span slot="tip">德兴学子在芝山合影(1924 年)</span>
+</ImageTip>
+
+
+# 关于朱蕴华和李锡畴
+
+我通过查阅《德兴县志》第 587 页找到了这张照片主人翁的历史
+
+## 李锡畴，朱蕴华
+
+- 1924 年江西省立五中毕业
+- 毕业后回到县城，李锡畴担任银井小学校长，朱蕴华担任教导主任，并兼任德兴县党务特派员
+- 1936 年李锡畴辞去小学校长当仁德兴党务干事
+- 1948 年 3 月李锡畴病逝，职务由朱蕴华担任。
+- 1949 年 5 月德兴县解放国民党垮台,朱蕴华后来不详
+
+
+<Code status={true}>
+  <span slot='tip' class="code-tip">src/components/a.temp</span>
+  <div slot='code' class="code-content">
+      ```javascript
+    console.log("hello world")
+
+    function sayHello() {
+      console.log("hello world")
+    }
+    ```
+  </div>
+</Code>

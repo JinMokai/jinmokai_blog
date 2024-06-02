@@ -2,7 +2,13 @@
 export default {
 	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
 	theme: {
-		extend: {},
+		extend: {
+			colors: {
+				codeBg: 'var(--code-bg)'
+			}
+		},
 	},
-	plugins: [],
+	plugins: [
+		require('@tailwindcss/typography'),
+	],
 }

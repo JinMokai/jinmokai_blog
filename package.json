@@ -9,7 +9,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "format:biome": "npx @biomejs/biome format ./src --write",
-		"lint:biome": "npx @biomejs/biome lint ./src"
+    "lint:biome": "npx @biomejs/biome lint ./src"
   },
   "dependencies": {
     "@astrojs/check": "^0.7.0",
@@ -17,7 +17,11 @@
     "@astrojs/rss": "^4.0.6",
     "@astrojs/tailwind": "^5.1.0",
     "@tailwindcss/cli": "4.0.0-alpha.15",
-    "astro": "^4.9.1",
+    "@tailwindcss/typography": "^0.5.13",
+    "astro": "^4.9.2",
+    "autoprefixer": "^10.4.19",
+    "cssnano": "^7.0.1",
+    "sharp": "^0.33.4",
     "tailwindcss": "3.4.3",
     "typescript": "^5.4.5"
   },

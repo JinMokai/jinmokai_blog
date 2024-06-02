@@ -1,0 +1,19 @@
+---
+
+---
+<style>
+    /* use custom style sheet */
+    .image :global(.c-image) {
+        margin-bottom: 1em;
+    }
+</style>
+
+<div class="image-tip flex flex-col justify-center items-center">
+    <div class="image">
+        <slot name="image"/>
+    </div>
+    <p class="text-center text-sm text-gray-400 !mt-0">
+        <slot name="tip"/>
+    </p>
+</div>
+
