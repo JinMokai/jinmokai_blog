@@ -4,7 +4,8 @@ export default {
 	theme: {
 		extend: {
 			colors: {
-				codeBg: 'var(--code-bg)'
+				codeBg: 'rgb(var(--code-bg) / 1)',
+				codeTipBg: 'rgb(var(--code-bg) / .8)'
 			}
 		},
 	},
