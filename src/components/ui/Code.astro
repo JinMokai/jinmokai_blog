@@ -1,15 +1,15 @@
 ---
 interface Props {
-	status: boolean;
+	showTip: boolean;
 }
-const { status } = Astro.props;
+const { showTip } = Astro.props;
 ---
 <!-- 
     If you use the tip prompt, you can use the tip slot
  -->
 <div class="code">
     {
-        status && (
+        showTip && (
             <div class="code-tip bg-codeTipBg text-xs px-5 py-3 border-b-[1px] border-gray-300">
                 <slot name="tip"/>
             </div>

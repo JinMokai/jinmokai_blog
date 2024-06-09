@@ -1,13 +1,16 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "@src/layout/baseLayout.astro";
+// components
+import HeadContent from "@src/components/ui/HeadContent.astro";
+import Footer from "@src/components/ui/Footer.astro";
 export async function getStaticPaths() {
   const blogs = await getCollection("blogs");
   const blogsList = blogs.filter((item) => !item.data.draft);
   return blogsList.map((entry) => {
     return {
       params: {
-        blog: entry.slug,
+        blog: entry.slug
       },
       props: {
         entry,
@@ -22,11 +25,12 @@ const { Content } = await entry.render();
 
 <BaseLayout title={blog}>
   <main>
-    <div class="w-full flex flex-col items-center">
-      <h1 class="flex text-6xl">{blog}</h1>
-      <div class="prose w-[80%] max-w-fit prose-p:my-4">
+    <div class="flex flex-col items-center w-[75ch] mx-auto">
+       <HeadContent headInfo={entry}/>
+      <div class="prose prose-p:my-4 !max-w-[inherit] prose-headings:mb-0">
         {Content ? <Content /> : <Fragment set:html={entry.body} />}
       </div>
     </div>
   </main>
+  <Footer />
 </BaseLayout>

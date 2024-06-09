@@ -17,6 +17,9 @@ dependencies:
   '@astrojs/tailwind':
     specifier: ^5.1.0
     version: 5.1.0(astro@4.10.0)(tailwindcss@3.4.3)
+  '@fontsource/ma-shan-zheng':
+    specifier: ^5.0.12
+    version: 5.0.12
   '@tailwindcss/cli':
     specifier: 4.0.0-alpha.15
     version: 4.0.0-alpha.15
@@ -1001,6 +1004,10 @@ packages:
     requiresBuild: true
     dev: false
     optional: true
+
+  /@fontsource/ma-shan-zheng@5.0.12:
+    resolution: {integrity: sha512-s9li4OzS85lSUCrcPJBYfek1Rh1Nc/lJotchFCbCNwcr/XFxqYIfJoTrGA5jjiSsrqRF9vV9C8Ov1JXfhJuF3w==}
+    dev: false
 
   /@img/sharp-darwin-arm64@0.33.4:
     resolution: {integrity: sha512-p0suNqXufJs9t3RqLBO6vvrgr5OhgbWp76s5gTRvdmxmuv9E1rcaqGUsl3l4mKVmXPkTkTErXediAui4x+8PSA==}
