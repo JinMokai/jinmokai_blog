@@ -1,0 +1,37 @@
+---
+import { Image } from 'astro:assets'
+interface Info {
+  slug: string
+  title: string
+  tags: string[]
+  updateDate: string
+  pubDate: string
+  description: string
+  image: {
+    url: string
+    alt: string
+  }
+  draft: boolean
+}
+export interface Props {
+  data: Info
+  images: any
+}
+
+const { data, images } = Astro.props
+const imageImport = images[data.image.url]
+const imageSrc = imageImport ? (await imageImport()).default : null
+---
+
+<div class="w-full min-h-[200px] inline-flex gap-4 px-4 py-2 rounded-lg bg-white shadow-lg border-gray-700 mb-4">
+    <a class="flex-1" href={'/blogs/' + data.slug}>
+        {imageSrc && <Image src={imageSrc} alt={data.image.alt} title={data.image.alt}/>}
+    </a>
+    <div class="flex-1 py-6 relative">
+        <h1 class="text-xl font-bold cursor-pointer hover:text-gray-800">
+          <a href={'/blogs/' + data.slug}>{data.title}</a>
+        </h1>
+        <p class="text-gray-500 pt-3 line-clamp-5">{data.description}</p>
+        <span class="absolute bottom-0 right-0 text-gray-400">{data.pubDate}</span>
+    </div>
+</div>

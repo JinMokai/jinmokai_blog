@@ -6,8 +6,30 @@ import Author from '@src/components/widgets/author.astro'
 
 <BaseLayout>
 	<main class="max-w-[75ch] mx-auto">
-		<h1 class="text-3xl font-bold mb-4">欢迎来到我的个人博客❤️</h1>
+		<h1 class="text-3xl font-bold mb-4 typing-demo">欢迎来到我的个人博客❤️</h1>
 		<Author />
 		<Footer />
 	</main>
 </BaseLayout>
+
+<style>
+	.typing-demo {
+      width: 23ch;
+      animation: typing 2s steps(23), blink 0.5s step-end infinite alternate;
+	  border-right: 3px solid;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    @keyframes typing {
+      from {
+        width: 0;
+      }
+    }
+
+    @keyframes blink {
+      50% {
+        border-color: transparent;
+      }
+    }
+</style>

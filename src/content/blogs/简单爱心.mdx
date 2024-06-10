@@ -1,0 +1,158 @@
+---
+title: "纯css制作520爱心动画制作❤️"
+pubDate: "2023-5-20"
+updateDate: ""
+description: "一年一度的5月20号,闲来无事,写一写！点击爱心有动画！"
+author: "ch_kai"
+image: 
+    url: "/src/assets/blogs/love/love.png"
+    alt: "这是一个爱心图片"
+tags: ["css"]
+draft: false
+---
+
+import Code from '@src/components/ui/Code.astro'
+
+# 效果
+
+[点击这个链接👉](https://codepen.io/cai_kai/pen/zYmMmJa)
+
+# 第一步
+
+<Code showTip={false}>
+    <div slot='code' class="code-content">
+    ```css
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    body {
+        width: 100%;
+        height: 100vh;
+        display: grid;
+        place-content: center;
+        background: -webkit-linear-gradient(top, #ffa5a5 0%, #ffd3d3 100%);
+    }
+    ```
+    </div>
+</Code>
+
+
+
+> 清除页面样式，并设置body背景图片！
+
+# 第二步
+
+<Code showTip={false}>
+    <div slot="code" class="code-content">
+ ```html
+    <input type="checkbox" id="love">
+    <label for="love">❤️</label>
+    <p class="typing-demo">5️⃣2️⃣0️⃣💌</p>
+```
+    </div>
+</Code>
+
+> 设置所需的html页面
+
+# 第三步
+
+<Code showTip={false}>
+    <div slot="code" class="code-content">
+```css
+[type="checkbox"] {
+    display: none;
+}
+[for="love"] {
+    cursor: pointer;
+    font-size: 5em;
+    text-align: center;
+    animation: 1s ease-in-out infinite love;
+}
+```
+    </div>
+</Code>
+
+> 将html骨架添加样式
+
+# 第四步
+
+<Code showTip={false}>
+    <div slot="code" class="code-content">
+```css
+@keyframes love {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+```
+    </div>
+</Code>
+
+
+> 让你的动画动起来吧！❤️
+
+# 第五步
+
+<Code showTip={false}>
+    <div slot="code" class="code-content">
+```css
+p {
+    display: none;
+    margin-block-start: 3rem;
+    width: min(30ch, 50%);
+}
+#love:checked ~ p {
+    display: block;
+}
+```
+    </div>
+</Code>
+
+
+> 为点击后出现的字符设置样式(margin-block-start是逻辑属性)
+> 通过:checked伪类实现点击效果，这样就是纯css啦！
+
+# 第六步
+
+<Code showTip={false}>
+    <div slot="code" class="code-content">
+```css
+.typing-demo {
+    width: 11ch;
+    animation: typing 2s steps(22), blink 0.5s step-end infinite alternate;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 3px solid;
+    font-family: monospace;
+    font-size: 3rem;
+}
+@keyframes typing {
+    from {
+        width: 0;
+    }
+}
+@keyframes blink {
+    50% {
+        border-color: transparent;
+    }
+}
+```
+    </div>
+</Code>
+
+
+
+> 我们可以看到typing-demo为什么是11ch,因为emjoy字符一个占三个字符，所以应该要12ch,为了显示不突兀所以用11ch!
+
+# 总结
+
+css是个强大的工具，我们不能小瞧了！
+
+bye! 👋

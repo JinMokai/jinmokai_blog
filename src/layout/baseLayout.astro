@@ -41,7 +41,25 @@ const { title } = Astro.props
       font-family: 'Ma Shan Zheng', cursive;
       background-color: #fafafa;
     }
+    img {
+      background: linear-gradient(99deg, rgba(143,157,159,1) 0%, rgba(240,240,240,1) 83%);
+    }
   }
 </style>
 
-<script></script>
+<script>
+    const images = document.querySelectorAll("img");
+
+    images.forEach((img) => {
+      if (img.complete) {
+        img.style.background = "none";
+      } else {
+        img.addEventListener("load", () => {
+          img.style.background = "none";
+        });
+        img.addEventListener("error", () => {
+          console.error(`Image failed to load: ${img.src}`);
+        });
+      }
+    });
+</script>

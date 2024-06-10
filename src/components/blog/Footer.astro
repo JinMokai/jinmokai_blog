@@ -1,8 +1,8 @@
 ---
 export interface Props {
-    customClassName?: string;
+  customClassName?: string
 }
-const { customClassName } = Astro.props;
+const { customClassName } = Astro.props
 ---
 
 <footer class="leading-6 text-center text-gray-500 py-4 mt-12" class:list={customClassName ? customClassName : ''}>

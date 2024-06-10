@@ -1,7 +1,34 @@
 ---
-import BaseLayout from "@src/layout/baseLayout.astro"
+import BlogCard from '@src/components/blog/blogCard.astro'
+import BaseLayout from '@src/layout/baseLayout.astro'
+import Footer from '@src/components/blog/Footer.astro'
+import { getCollection } from 'astro:content'
+
+const blogs = await getCollection('blogs')
+const blogsList = blogs
+  .filter((item) => !item.data.draft)
+  .sort(
+    (a, b) =>
+      new Date(b.data.pubDate as string).getTime() -
+      new Date(a.data.pubDate as string).getTime(),
+  )
+const blogsInfo = blogsList.map((item) => {
+  return {
+    slug: item.slug,
+    ...item.data,
+  }
+})
+const images = import.meta.glob('/src/assets/blogs/*/*.{jpeg,jpg,png,gif}')
 ---
 
 <BaseLayout>
-    <h1>blogs</h1>
+    <main class="max-w-[75ch] mx-auto">
+        <h1 class="text-3xl font-bold text-center mb-8">文章</h1>
+        {
+            blogsInfo.map(item => {
+                return <BlogCard data={item} images={images}/>
+            })
+        }
+    </main>
+    <Footer />
 </BaseLayout>

@@ -27,7 +27,7 @@ const { Content } = await entry.render()
   <main>
     <div class="flex flex-col items-center max-w-[75ch] mx-auto">
        <HeadContent headInfo={entry}/>
-      <div class="prose prose-p:my-4 !max-w-[inherit] prose-headings:mb-0">
+      <div class="prose prose-p:my-4 !max-w-[inherit] prose-headings:mb-2">
         {Content ? <Content /> : <Fragment set:html={entry.body} />}
       </div>
     </div>
