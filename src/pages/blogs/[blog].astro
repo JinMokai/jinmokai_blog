@@ -2,8 +2,8 @@
 import { getCollection } from 'astro:content'
 import BaseLayout from '@src/layout/baseLayout.astro'
 // components
-import HeadContent from '@src/components/ui/HeadContent.astro'
-import Footer from '@src/components/ui/Footer.astro'
+import HeadContent from '@src/components/blog/HeadContent.astro'
+import Footer from '@src/components/blog/Footer.astro'
 export async function getStaticPaths() {
   const blogs = await getCollection('blogs')
   const blogsList = blogs.filter((item) => !item.data.draft)

@@ -1,0 +1,23 @@
+---
+import { Picture } from 'astro:assets'
+import SocialTag from '@src/components/widgets/social/socialTag.astro'
+import myAuthor from '@src/assets/author/2023-10.png'
+---
+
+<article>
+    <div class="max-w-[150px] rounded-full overflow-hidden shadow-lg mb-2">
+        <Picture src={myAuthor} alt="作者2023年10月拍摄" formats={["avif", "webp"]} />
+    </div>
+    <p class="text-lg inline-flex">
+        我是一位前端中级开发在
+        <a href="https://maps.app.goo.gl/HtjXLvthVnbDBdYP7" class="transition-all duration-300 ease-in-out text-link underline underline-offset-2 decoration-linkHover hover:decoration-link font-bold" target="_blank">杭州</a>
+    </p>
+    <p class="text-lg">我的名字是金凯（字：谟凯）<span class="font-bold">谟</span>是族谱的字号</p>
+    <ul class="prose mt-4">
+        <li class="before:content-['-']">目前工作行业是saas/paas，针对企业售后问题</li>
+        <li class="before:content-['-']">拥有Vue开发经验一年</li>
+        <li class="before:content-['-']">喜欢Astro三年了！</li>
+    </ul>
+    <SocialTag />
+
+</article>

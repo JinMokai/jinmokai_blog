@@ -1,0 +1,18 @@
+---
+import {homeTag as HomeTagList} from '@src/components/widgets/homeTag/index'
+---
+
+<div class="inline-flex gap-2">
+    {
+        HomeTagList.map(item => {
+            return (
+                    <a href={item.link ? `${item.link}` : ''} class="flex gap-1 items-center cursor-pointer hover:underline hover:underline-offset-4 transition-[underline] duration-300 ease-in-out delay-100">
+                        {
+                            item.icon && <span set:html={item.icon} class="w-6 h-6"></span>
+                        }
+                        <span>{item.name}</span>
+                    </a>
+            )
+        })
+    }
+</div>

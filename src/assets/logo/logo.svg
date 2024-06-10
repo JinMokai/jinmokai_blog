@@ -49,14 +49,3 @@ l-23 -27 -1 35 -1 35 -25 -30 c-22 -26 -25 -27 -19 -7 3 12 2 22 -3 22 -5 0
 -8z"/>
 </g>
 </svg>
-
-<style>
-path  {
-    fill: #000000;
-}
-@media (prefers-color-scheme: dark) {
-    path  {
-        fill: #fff;
-    }
-}
-</style>

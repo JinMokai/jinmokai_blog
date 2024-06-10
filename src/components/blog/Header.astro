@@ -1,0 +1,19 @@
+---
+import { Picture } from 'astro:assets'
+import HomeTag from '@src/components/widgets/homeTag/index.astro'
+import logo from '@src/assets/logo/logo.svg'
+---
+
+<header class="w-full sticky top-0 left-0 z-10 flex flex-row justify-between px-6 py-2 backdrop-blur-md">
+    <div>
+        <Picture 
+          src={logo}
+          alt="jinmokai's blog logo"
+          formats={['avif', 'webp']}
+        />
+    </div>
+    
+    <nav class="flex items-center">
+        <HomeTag />
+    </nav>
+</header>

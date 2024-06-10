@@ -1,0 +1,43 @@
+---
+import type { Head } from "@src/components/ui/type";
+import Tag from "@src/components/widgets/tag.astro";
+export interface Props {
+  headInfo: Head;
+}
+const { headInfo } = Astro.props;
+---
+
+<!-- <div class="flex justify-center flex-col w-full mb-4">
+    <div class="mb-4 w-fit">
+        <h1 class="text-4xl font-bold text-gray-800">{headInfo.slug}</h1>
+        <p class="text-right text-zinc-500 text-sm">{headInfo.data.description}</p>
+    </div>
+    <div class="flex w-ful">
+        <div class="flex flex-row w-full space-x-4 leading-[1.67]">
+            <div class="text-xs font-light text-zinc-500">
+                <span>{headInfo.data.pubDate}</span>
+            </div>
+            <div class="text-xs font-light text-zinc-500">
+                {headInfo.data.tags.map(item => (
+                    <Tag tag={item}/>
+                ))}
+            </div>
+        </div>
+    </div>
+</div> -->
+<div class="flex justify-center flex-col w-full mb-4 items-center gap-6">
+  <div>
+    <h1 class="text-5xl text-center font-black">{headInfo.slug}</h1>
+  </div>
+  <div class="flex w-full justify-center">
+    <div class="flex items-center justify-center gap-2">
+      <div class="text-xs text-zinc-500">
+        <span>{headInfo.data.pubDate}</span>
+      </div>
+      <div class="text-xs text-zinc-500">
+        {headInfo.data.tags.map((item) => <Tag tag={item} />)}
+      </div>
+    </div>
+  </div>
+  <p class="text-lg text-center text-zinc-700 max-w-[480px]">{headInfo.data.description}</p>
+</div>

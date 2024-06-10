@@ -1,4 +1,5 @@
 ---
+import Header from '@src/components/blog/Header.astro'
 const { title } = Astro.props
 ---
 
@@ -11,7 +12,10 @@ const { title } = Astro.props
     <title>{title ? title : `Jinmokai's blog`}</title>
   </head>
   <body>
-    <slot />
+    <Header />
+    <div class="pt-24">
+      <slot />
+    </div>
   </body>
 </html>
 
@@ -22,9 +26,20 @@ const { title } = Astro.props
   @layer base {
     :root {
       --code-bg: 245 245 245;
+      --gray-0: #f8f9fa;
+      --gray-1: #f1f3f5;
+      --gray-2: #e9ecef;
+      --gray-3: #dee2e6;
+      --gray-4: #ced4da;
+      --gray-5: #adb5bd;
+      --gray-6: #868e96;
+      --gray-7: #495057;
+      --gray-8: #343a40;
+      --gray-9: #212529;
     }
     :where(body,html):not(.code > *, .code) {
       font-family: 'Ma Shan Zheng', cursive;
+      background-color: #fafafa;
     }
   }
 </style>

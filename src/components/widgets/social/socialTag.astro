@@ -1,0 +1,29 @@
+---
+import { socialList } from '@src/components/widgets/social/social'
+---
+
+<div class="inline-flex gap-2">
+  {
+    socialList.map((item) => {
+      return (
+        <div class="mt-3 px-2 py-1 bg-gray-100 rounded-lg flex items-center gap-1 hover:bg-gray-200 transition-all cursor-pointer">
+          {item.type === "email" ? (
+            <a href={`mailto:${item.link}`} class="flex gap-1 items-center">
+              <span set:html={item.icon} class="w-6 h-6" />
+              <span>{item.name}</span>
+            </a>
+          ) : (
+            <a
+              href={item.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex gap-1 items-center">
+              <span set:html={item.icon} class="w-6 h-6" />
+              <span>{item.name}</span>
+            </a>
+          )}
+        </div>
+      );
+    })
+  }
+</div>
