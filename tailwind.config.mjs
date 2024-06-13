@@ -8,6 +8,15 @@ export default {
 				codeTipBg: 'rgb(var(--code-bg) / .8)',
 				link: 'var(--gray-9)',
 				linkHover: 'var(--gray-6)',
+			},
+			animation: {
+				'marquee': 'marquee 10s linear infinite'
+			},
+			keyframes: {
+				'marquee': {
+					'from': { transform: 'translateX(0)' },
+					'to': { transform: 'translateX(-50%)' },
+				}
 			}
 		},
 	},

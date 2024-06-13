@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content'
+import Tag from '@src/components/widgets/tag.astro'
+
+const blogs = await getCollection('blogs')
+const blogsTagList = blogs
+  .filter((item) => !item.data.draft)
+  .map((item) => item.data.tags)
+  .flat(Infinity)
+const classifyObj = new Map()
+
+// total tags and count
+blogsTagList.forEach((item) => {
+  if (classifyObj.has(item)) {
+    classifyObj.set(item, classifyObj.get(item) + 1)
+  } else {
+    classifyObj.set(item, 1)
+  }
+})
+
+---
+
+<div class="w-full mt-4">
+    <div class="flex items-center flex-wrap">
+        {
+            Array.from(classifyObj).map(item => {
+                return <div class="flex items-center justify-between p-2 rounded-md cursor-pointer">
+                    <Tag tag={item[0]} count={item[1]} />
+                </div>
+            })
+        }
+    </div>
+</div>
