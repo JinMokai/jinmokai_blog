@@ -1,0 +1,60 @@
+---
+import BlogCard from '@src/components/blog/blogCard.astro'
+import PostsLayout from '@src/layout/postsLayout.astro'
+import Footer from '@src/components/blog/Footer.astro'
+import { getCollection } from 'astro:content'
+
+export async function getStaticPaths() {
+  const blogs = await getCollection('blogs')
+  const blogsList = blogs
+    .filter((item) => !item.data.draft)
+    .sort(
+      (a, b) =>
+        new Date(b.data.pubDate as string).getTime() -
+        new Date(a.data.pubDate as string).getTime(),
+    )
+
+  // create unique tags of blogs
+  const uniqueTags = [
+    ...new Set(blogsList.map((item) => item.data.tags).flat()),
+  ]
+
+  return uniqueTags.map((tag) => {
+    const blogsWithTag = blogsList.filter((item) =>
+      item.data.tags.includes(tag),
+    )
+
+    return {
+      params: {
+        tag: tag,
+      },
+      props: {
+        blogsInfo: blogsWithTag.map((item) => {
+          return {
+            slug: item.slug,
+            ...item.data,
+          }
+        }),
+      },
+    }
+  })
+}
+
+
+const images = import.meta.glob('/src/assets/blogs/*/*.{jpeg,jpg,png,gif}')
+
+const { tag } = Astro.params
+const { blogsInfo } = Astro.props
+---
+
+<PostsLayout>
+    <main class="max-w-[75ch] mx-auto">
+        <h1 class="text-3xl font-bold text-center mb-8">{tag}</h1>
+        {
+            blogsInfo.map(item => {
+                return <BlogCard data={item} images={images}/>
+            })
+        }
+    </main>
+    <Footer />
+</BaseLayout>

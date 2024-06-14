@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content'
-import BaseLayout from '@src/layout/baseLayout.astro'
+import PostsLayout from '@src/layout/postsLayout.astro'
 // components
 import HeadContent from '@src/components/blog/HeadContent.astro'
 import Footer from '@src/components/blog/Footer.astro'
@@ -23,7 +23,7 @@ const { entry } = Astro.props
 const { Content } = await entry.render()
 ---
 
-<BaseLayout title={blog}>
+<PostsLayout title={blog}>
   <main>
     <div class="flex flex-col items-center max-w-[75ch] mx-auto">
        <HeadContent headInfo={entry}/>
@@ -33,4 +33,4 @@ const { Content } = await entry.render()
     </div>
   </main>
   <Footer />
-</BaseLayout>
+</PostsLayout>

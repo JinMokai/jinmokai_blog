@@ -35,7 +35,11 @@ const { headInfo } = Astro.props
         <span>{headInfo.data.pubDate}</span>
       </div>
       <div class="text-xs text-zinc-500">
-        {headInfo.data.tags.map((item) => <Tag tag={item} />)}
+        {headInfo.data.tags.map((item) => (
+          <a href={`/tags/${item}`}>
+            <Tag tag={item} />
+          </a>
+        ))}
       </div>
     </div>
   </div>

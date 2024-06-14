@@ -1,0 +1,57 @@
+---
+import BaseLayout from '@src/layout/baseLayout.astro'
+import Header from '@src/components/blog/Header.astro'
+
+export interface Props {
+  title?: string
+  clean?: boolean
+  noShowHead?: boolean
+}
+const { title, clean, noShowHead } = Astro.props
+---
+
+<BaseLayout title={title ? title : ''}>
+    {
+        !noShowHead && (
+            <Header />
+        )
+    }
+    <div class:list={clean ? '' :'pt-24'}>
+        <slot />
+    </div>
+</BaseLayout>
+
+<style is:global>
+img {
+      /* background: linear-gradient(99deg, rgba(143,157,159,1) 0%, rgba(240,240,240,1) 83%); */
+    }
+     /* Hide scrollbar for Chrome, Safari and Opera */
+     /* :where(html,body):-webkit-scrollbar {
+      display: none;
+    } */
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    /* html,body {
+      -ms-overflow-style: none;  
+      scrollbar-width: none;  
+    } */
+</style>
+
+<script>
+    // const images = document.querySelectorAll("img");
+    // document.addEventListener('astro:page-load', () => {
+    //   images.forEach((img) => {
+    //   if (img.complete) {
+    //     img.style.background = "none";
+    //   } else {
+    //     img.addEventListener("load", () => {
+    //       img.style.background = "none";
+    //     });
+    //     img.addEventListener("error", () => {
+    //       console.error(`Image failed to load: ${img.src}`);
+    //     });
+    //   }
+    // });
+    // })
+    
+</script>

@@ -1,6 +1,6 @@
 ---
 import BlogCard from '@src/components/blog/blogCard.astro'
-import BaseLayout from '@src/layout/baseLayout.astro'
+import PostsLayout from '@src/layout/postsLayout.astro'
 import Footer from '@src/components/blog/Footer.astro'
 import { getCollection } from 'astro:content'
 
@@ -21,7 +21,7 @@ const blogsInfo = blogsList.map((item) => {
 const images = import.meta.glob('/src/assets/blogs/*/*.{jpeg,jpg,png,gif}')
 ---
 
-<BaseLayout>
+<PostsLayout>
     <main class="max-w-[75ch] mx-auto">
         <h1 class="text-3xl font-bold text-center mb-8">文章</h1>
         {
@@ -31,4 +31,4 @@ const images = import.meta.glob('/src/assets/blogs/*/*.{jpeg,jpg,png,gif}')
         }
     </main>
     <Footer />
-</BaseLayout>
+</PostsLayout>

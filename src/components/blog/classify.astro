@@ -24,9 +24,9 @@ blogsTagList.forEach((item) => {
     <div class="flex items-center flex-wrap">
         {
             Array.from(classifyObj).map(item => {
-                return <div class="flex items-center justify-between p-2 rounded-md cursor-pointer">
+                return <a href={`/tags/${item[0]}`} class="flex items-center justify-between p-2 rounded-md cursor-pointer">
                     <Tag tag={item[0]} count={item[1]} />
-                </div>
+                </a>
             })
         }
     </div>
