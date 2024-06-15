@@ -1,0 +1,24 @@
+---
+import PostsLayout from '@src/layout/postsLayout.astro'
+import Footer from '@src/components/blog/Footer.astro'
+import ProjectCard from '@src/components/project/projectCard.astro'
+import { projectList as ProjectList } from '@src/pages/project/index.ts'
+---
+
+<PostsLayout>
+	<main class="max-w-[75ch] mx-auto">
+		<h1 class="text-3xl font-bold text-center mb-8">项目</h1>
+        {
+            ProjectList.length !== 0 ? (
+                <ul>
+                    {ProjectList.map((project) => (
+                        <ProjectCard name={project.name} description={project.description} link={project.link} />
+                    ))}
+                </ul>
+            ) : (
+                <div class="text-center">暂无项目</div>
+            )
+        }
+	</main>
+    <Footer />
+</PostsLayout>
