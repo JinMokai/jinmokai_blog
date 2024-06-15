@@ -5,7 +5,7 @@ export interface Props {
   count?: number
   class?: string
 }
-const { tag, count, class: className, ...rest } = Astro.props
+const { tag, count, class: className } = Astro.props
 ---
 
 <div class="text-xs font-light text-zinc-500 flex items-center gap-1 cursor-pointer hover:text-zinc-700 hover:underline hover:underline-offset-2">

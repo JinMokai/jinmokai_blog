@@ -4,7 +4,7 @@
  * @param delay 延迟时间（毫秒）
  */
 function debounce<T extends (...args: any[]) => void>(func: T, delay: number): T {
-  let timer: NodeJS.Timeout | null;
+  let timer: ReturnType<typeof setTimeout> | null;
 
   return function (this: ThisParameterType<T>, ...args: Parameters<T>): void {
     const context = this;
