@@ -1,0 +1,318 @@
+---
+title: "深拷贝，浅拷贝问题详解！"
+pubDate: "2023-5-8"
+updateDate: ""
+description: "总结了深拷贝和浅拷贝一些流行方法！不过还是推荐使用Lodash库的深拷贝！"
+author: "ch_kai"
+image: 
+    url: ""
+    alt: "This is an image placeholder, indicating that there is no image yet!"
+tags: ["javascript"]
+draft: false
+---
+
+import Code from '@src/components/ui/Code.astro'
+
+| 第一次发布时间      | 最后更新时间        | 兼容性   |
+| ------------------- | ------------------- | -------- |
+| 2021-11-18 10:49:41 | 2023-7-10 13:59 | 下面详情 |
+
+# 以下案例用到例子
+
+<Code showTip={false}>
+  <div slot='code' class='code-content'>
+```js
+let s = Symbol('foo');
+let obj = {
+    "name": "ch_kai",
+    "date": new Date(),
+    "value": 32,
+    "arr": [1, 2, 3, 4, 5],
+    [s]: "symbol value",
+    regexp: /^\d/,
+    fn: function() {
+        console.log('this is fn')
+    },
+    obj: {
+        name: {
+            age: 20
+        }
+    },
+    map: new Map().set("a", 1),
+    set: new Set().add("b")
+}
+``` 
+  </div>
+</Code>
+
+## 浅拷贝
+
+### Object.assign() 方法
+
+<Code showTip={false}>
+  <div slot='code' class='code-content'>
+```js
+function shallowCopy(obj) {
+  return Object.assign({}, obj);
+}
+```
+  </div>
+</Code>
+
+
+|               | 兼容性     | 其他 |
+| ------------- | ---------- | ---- |
+| Object.assign | ie 不支持❌ |  引用类型改变    |
+
+### 扩展运算符
+
+<Code showTip={false}>
+  <div slot='code' class='code-content'>
+```js
+function shallowCopy(obj) {
+  return { ...obj };
+}
+```
+  </div>
+</Code>
+
+|              | 兼容性     | 其他 |
+| ------------ | ---------- | ---- |
+| ... 扩展语法 | ie 不支持❌ | 引用类型改变     |
+
+## 深拷贝
+
+### JSON.stringify()和 JSON.parse()
+
+<Code showTip={false}>
+  <div slot='code' class='code-content'>
+```js
+function deepCopy(obj) {
+  return JSON.parse(JSON.stringify(obj));
+}
+```
+  </div>
+</Code>
+
+
+|                  | 兼容性   | 其他                                                         |
+| ---------------- | -------- | ------------------------------------------------------------ |
+| JSON.stringify() | ie 8以上 | node 18.14，chrome浏览器104：set，map，regexp获取不到。  function，symbol消失。日期Date变字符串 |
+
+### 自定义 deepClone方法
+
+
+<Code showTip={false}>
+  <div slot='code' class='code-content'>
+```js
+function deepClone(source) {
+  if (source === null) {
+    return source;
+  }
+  var target = Array.isArray(source) ? [] : {};
+  for (var k in source) {
+    var val = source[k];
+    var valueType = typeof val;
+    if (valueType === "function") {
+      target[k] = new Function("return " + val.toString())();
+    } else if (valueType === "object") {
+      target[k] = deepClone(val);
+    } else {
+      target[k] = val;
+    }
+  }
+  return target;
+}
+```
+  </div>
+</Code>
+
+
+|                              | 兼容性   | 其他             |
+| ---------------------------- | -------- | ---------------- |
+| 自定义 | ie 8以上 | chrome104，node14：date日期、map集合、set集合、正则获取不到。 symbol消失。 |
+
+### js原生structuredClone语法
+
+
+<Code showTip={false}>
+  <div slot='code' class='code-content'>
+```js
+const newCopy = structuredClone(obj)
+newCopy.arr.reverse()
+newCopy.obj.name.age = 323232
+newCopy.set.clear()
+newCopy.map.clear()
+console.log(newCopy)
+console.log(obj)
+```
+  </div>
+</Code>
+
+|                              | 兼容性   | 其他             |
+| ---------------------------- | -------- | ---------------- |
+| structuredClone() | 最低：chrome 98 firefox94 safari 15.4  nodejs 17 deno 1.14 | 如果有函数会报错:Uncaught DOMException: Failed to execute 'structuredClone' on 'Window' |
+
+### node.js模块
+
+
+<Code showTip={false}>
+  <div slot='code' class='code-content'>
+```js
+const mapTag = "[object Map]";
+const setTag = "[object Set]";
+const arrayTag = "[object Array]";
+const objectTag = "[object Object]";
+const argsTag = "[object Arguments]";
+
+const boolTag = "[object Boolean]";
+const dateTag = "[object Date]";
+const numberTag = "[object Number]";
+const stringTag = "[object String]";
+const symbolTag = "[object Symbol]";
+const errorTag = "[object Error]";
+const regexpTag = "[object RegExp]";
+const funcTag = "[object Function]";
+
+const deepTag = [mapTag, setTag, arrayTag, objectTag, argsTag];
+
+function forEach(array, iteratee) {
+  let index = -1;
+  const length = array.length;
+  while (++index < length) {
+    iteratee(array[index], index);
+  }
+  return array;
+}
+
+function isObject(target) {
+  const type = typeof target;
+  return target !== null && (type === "object" || type === "function");
+}
+
+function getType(target) {
+  return Object.prototype.toString.call(target);
+}
+
+function getInit(target) {
+  const Ctor = target.constructor;
+  return new Ctor();
+}
+
+function cloneSymbol(targe) {
+  return Object(Symbol.prototype.valueOf.call(targe));
+}
+
+function cloneReg(targe) {
+  const reFlags = /\w*$/;
+  const result = new targe.constructor(targe.source, reFlags.exec(targe));
+  result.lastIndex = targe.lastIndex;
+  return result;
+}
+
+function cloneFunction(func) {
+  const bodyReg = /(?<={)(.|\n)+(?=})/m;
+  const paramReg = /(?<=\().+(?=\)\s+{)/;
+  const funcString = func.toString();
+  if (func.prototype) {
+    const param = paramReg.exec(funcString);
+    const body = bodyReg.exec(funcString);
+    if (body) {
+      if (param) {
+        const paramArr = param[0].split(",");
+        return new Function(...paramArr, body[0]);
+      } else {
+        return new Function(body[0]);
+      }
+    } else {
+      return null;
+    }
+  } else {
+    return eval(funcString);
+  }
+}
+
+function cloneOtherType(targe, type) {
+  const Ctor = targe.constructor;
+  switch (type) {
+    case boolTag:
+    case numberTag:
+    case stringTag:
+    case errorTag:
+    case dateTag:
+      return new Ctor(targe);
+    case regexpTag:
+      return cloneReg(targe);
+    case symbolTag:
+      return cloneSymbol(targe);
+    case funcTag:
+      return cloneFunction(targe);
+    default:
+      return null;
+  }
+}
+
+function clone(target, map = new WeakMap()) {
+  // 克隆原始类型
+  if (!isObject(target)) {
+    return target;
+  }
+
+  // 初始化
+  const type = getType(target);
+  let cloneTarget;
+  if (deepTag.includes(type)) {
+    cloneTarget = getInit(target, type);
+  } else {
+    return cloneOtherType(target, type);
+  }
+
+  // 防止循环引用
+  if (map.get(target)) {
+    return map.get(target);
+  }
+  map.set(target, cloneTarget);
+
+  // 克隆set
+  if (type === setTag) {
+    target.forEach((value) => {
+      cloneTarget.add(clone(value, map));
+    });
+    return cloneTarget;
+  }
+
+  // 克隆map
+  if (type === mapTag) {
+    target.forEach((value, key) => {
+      cloneTarget.set(key, clone(value, map));
+    });
+    return cloneTarget;
+  }
+
+  // 克隆对象和数组
+  const keys = type === arrayTag ? undefined : Object.keys(target);
+  forEach(keys || target, (value, key) => {
+    if (keys) {
+      key = value;
+    }
+    cloneTarget[key] = clone(target[key], map);
+  });
+
+  return cloneTarget;
+}
+
+module.exports = {
+  clone,
+};
+// https://github.com/ConardLi/ConardLi.github.io/blob/master/demo/deepClone/src/clone_6.js
+
+```
+
+  </div>
+</Code>
+
+> 掘金作品，很强。功能丰富！
+
+## other
+
++ 可以使用lodash的拷贝。

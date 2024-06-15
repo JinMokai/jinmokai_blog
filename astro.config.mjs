@@ -8,6 +8,7 @@ export default defineConfig({
 	root: ".",
 	site: "https://chkaiblog.eu.org/",
 	output: "static",
+	prefetch: true,
 	integrations: [
 		mdx({
 			syntaxHighlight: "shiki",
