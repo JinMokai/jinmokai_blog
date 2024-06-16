@@ -1,5 +1,4 @@
 ---
-import { Picture } from 'astro:assets'
 import PostsLayout from '@src/layout/postsLayout.astro'
 import Footer from '@src/components/blog/Footer.astro'
 import PhotoCard from '@src/components/ui/photoCard.astro'
@@ -15,13 +14,13 @@ const assetsPhoto = import.meta.glob(
 <PostsLayout clean={true}>
     <main class="max-w-[80%] mx-auto">
         {
-            Object.keys(PhotoList).map(year => (
+            Object.keys(PhotoList).reverse().map(year => (
                 <section class="mb-12">
                     <h2 class="text-xl font-bold mb-4 text-center">{year}年</h2>
                     <div class="grid grid-cols-1 gap-x-4 items-start 3xl:grid-cols-3 md:grid-cols-2">
                         {/* TODO:dont's use js */}
                         {
-                            PhotoList[year].map(item => (
+                            PhotoList[year].sort((a, b) => new Date(b.date as string).getTime() - new Date(a.date as string).getTime()).map(item => (
                                 <PhotoCard data={item} images={assetsPhoto} />
                             ))
                         }

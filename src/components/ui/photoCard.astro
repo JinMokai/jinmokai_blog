@@ -5,6 +5,7 @@ export interface Props {
   data: {
     link: string
     info: string
+    date: string
   }
   images: any
 }
@@ -25,5 +26,6 @@ const imageSrc = imageImport
         )
     }
     
-    <p class="mt-2 text-center">{data.info}</p>
+    <p class="mt-2 text-right">{data.date}</p>
+    <p class="mb-2 text-right">{data.info}</p>
 </div>
