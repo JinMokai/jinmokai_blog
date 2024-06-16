@@ -17,6 +17,9 @@ export default {
 					'from': { transform: 'translateX(0)' },
 					'to': { transform: 'translateX(-50%)' },
 				}
+			},
+			screens: {
+				'3xl': '1920px'
 			}
 		},
 	},

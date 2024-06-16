@@ -1,0 +1,29 @@
+---
+import { Image } from 'astro:assets'
+import Defult_blogCard_img from '@src/assets/post_img.webp'
+export interface Props {
+  data: {
+    link: string
+    info: string
+  }
+  images: any
+}
+const { data, images } = Astro.props
+const imageImport = images[data.link]
+const imageSrc = imageImport
+  ? (await imageImport()).default
+  : Defult_blogCard_img
+---
+
+<div>
+    {
+        imageSrc && (
+                <Image
+                      src={imageSrc}
+                      alt={data.info}
+                />
+        )
+    }
+    
+    <p class="mt-2 text-center">{data.info}</p>
+</div>
