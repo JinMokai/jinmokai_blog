@@ -16,8 +16,8 @@ import Classify from '@src/components/blog/classify.astro'
 
 <style>
 	.typing-demo {
-      width: 23ch;
-      animation: typing 2s steps(23), blink 0.5s step-end infinite alternate;
+      width: 12em;
+      animation: typing 2s steps(12, end), blink 0.5s step-end infinite alternate;
 	  border-right: 3px solid;
       white-space: nowrap;
       overflow: hidden;
@@ -26,6 +26,9 @@ import Classify from '@src/components/blog/classify.astro'
     @keyframes typing {
       from {
         width: 0;
+      }
+      to {
+        width: 12em;
       }
     }
 
