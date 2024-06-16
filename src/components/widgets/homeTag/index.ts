@@ -9,7 +9,7 @@ export const homeTag = [
   },
   {
     name: '项目',
-    link: '/project'
+    link: '/project',
   },
   // {
   //   name: '分类',

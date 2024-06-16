@@ -40,7 +40,6 @@ export async function getStaticPaths() {
   })
 }
 
-
 const images = import.meta.glob('/src/assets/blogs/*/*.{jpeg,jpg,png,gif}')
 
 const { tag } = Astro.params
