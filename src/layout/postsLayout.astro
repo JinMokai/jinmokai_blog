@@ -42,15 +42,15 @@ img, iframe {
 </style>
 
 <script data-astro-rerun is:inline>
-  const clearBackground = (img) => {
-    img.style.background = "none";
-    const imgF = img.closest('.animate-pulse');
-    if (imgF) {
-      imgF.classList.remove('animate-pulse');
-    }
-  };
-
   const handleImageLoad = (img) => {
+    const clearBackground = (img) => {
+      img.style.background = "none";
+      const imgF = img.closest('.animate-pulse');
+      if (imgF) {
+        imgF.classList.remove('animate-pulse');
+      }
+    };
+
     if (img.complete) {
       clearBackground(img);
     } else {
