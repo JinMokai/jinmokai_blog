@@ -22,7 +22,11 @@ const { title, clean, noShowHead } = Astro.props
 </BaseLayout>
 
 <style is:global>
-img {
+/* 
+  use default load background 
+  You can see that using JavaScript to clear the animation class names of img parent elements
+*/
+img, iframe {
       background: linear-gradient(99deg, rgba(143,157,159,1) 0%, rgba(240,240,240,1) 83%);
     }
      /* Hide scrollbar for Chrome, Safari and Opera */
@@ -38,19 +42,30 @@ img {
 </style>
 
 <script data-astro-rerun is:inline>
+  const clearBackground = (img) => {
+    img.style.background = "none";
+    const imgF = img.closest('.animate-pulse');
+    if (imgF) {
+      imgF.classList.remove('animate-pulse');
+    }
+  };
+
+  const handleImageLoad = (img) => {
+    if (img.complete) {
+      clearBackground(img);
+    } else {
+      img.addEventListener("load", () => clearBackground(img));
+      img.addEventListener("error", () => {
+        console.error(`Image failed to load: ${img.src}`);
+      });
+    }
+  };
+
   document.addEventListener('astro:page-load', () => {
-      const images = document.querySelectorAll("img");
-      images.forEach((img) => {
-      if (img.complete) {
-        img.style.background = "none";
-      } else {
-        img.addEventListener("load", () => {
-          img.style.background = "none";
-        });
-        img.addEventListener("error", () => {
-          console.error(`Image failed to load: ${img.src}`);
-        });
-      }
-    });
-  })
+    document.querySelectorAll("img").forEach(handleImageLoad);
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll("img").forEach(handleImageLoad);
+  });
 </script>
