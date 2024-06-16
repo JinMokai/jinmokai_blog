@@ -42,30 +42,48 @@ img, iframe {
 </style>
 
 <script data-astro-rerun is:inline>
-  const handleImageLoad = (img) => {
-    const clearBackground = (img) => {
-      img.style.background = "none";
-      const imgF = img.closest('.animate-pulse');
-      if (imgF) {
-        imgF.classList.remove('animate-pulse');
-      }
-    };
-
-    if (img.complete) {
-      clearBackground(img);
-    } else {
-      img.addEventListener("load", () => clearBackground(img));
-      img.addEventListener("error", () => {
-        console.error(`Image failed to load: ${img.src}`);
-      });
-    }
-  };
 
   document.addEventListener('astro:page-load', () => {
+    const handleImageLoad = (img) => {
+      const clearBackground = (img) => {
+        img.style.background = "none";
+        const imgF = img.closest('.animate-pulse');
+        if (imgF) {
+          imgF.classList.remove('animate-pulse');
+        }
+      };
+
+      if (img.complete) {
+        clearBackground(img);
+      } else {
+        img.addEventListener("load", () => clearBackground(img));
+        img.addEventListener("error", () => {
+          console.error(`Image failed to load: ${img.src}`);
+        });
+      }
+    };
     document.querySelectorAll("img").forEach(handleImageLoad);
   });
 
   document.addEventListener('DOMContentLoaded', () => {
+    const handleImageLoad = (img) => {
+      const clearBackground = (img) => {
+        img.style.background = "none";
+        const imgF = img.closest('.animate-pulse');
+        if (imgF) {
+          imgF.classList.remove('animate-pulse');
+        }
+      };
+
+      if (img.complete) {
+        clearBackground(img);
+      } else {
+        img.addEventListener("load", () => clearBackground(img));
+        img.addEventListener("error", () => {
+          console.error(`Image failed to load: ${img.src}`);
+        });
+      }
+    };
     document.querySelectorAll("img").forEach(handleImageLoad);
   });
 </script>
