@@ -4,6 +4,7 @@ import PostsLayout from '@src/layout/postsLayout.astro'
 // components
 import HeadContent from '@src/components/blog/HeadContent.astro'
 import Footer from '@src/components/blog/Footer.astro'
+import PostComments from '@src/components/ui/PostComments.astro'
 export async function getStaticPaths() {
   const blogs = await getCollection('blogs')
   const blogsList = blogs.filter((item) => !item.data.draft)
@@ -30,6 +31,7 @@ const { Content } = await entry.render()
       <div class="prose prose-p:my-4 !max-w-[inherit] prose-headings:mb-2 prose-td:text-center prose-td:align-middle prose-th:whitespace-nowrap">
         {Content ? <Content /> : <Fragment set:html={entry.body} />}
       </div>
+      <PostComments />
     </div>
   </main>
   <Footer />
