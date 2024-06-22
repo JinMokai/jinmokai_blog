@@ -1,7 +1,7 @@
 ---
 import { ViewTransitions } from 'astro:transitions'
 import LoadingIndicator from "astro-loading-indicator/component"
-import '@fontsource/ma-shan-zheng';
+//import '@fontsource/ma-shan-zheng';
 const { title } = Astro.props
 ---
 
@@ -33,7 +33,7 @@ const { title } = Astro.props
   @tailwind utilities;
   @layer base {
     :root {
-      --base-font-size: 14;
+      --base-font-size: 16;
       --code-bg: 245 245 245;
       --gray-0: #f8f9fa;
       --gray-1: #f1f3f5;
@@ -46,42 +46,16 @@ const { title } = Astro.props
       --gray-8: #343a40;
       --gray-9: #212529;
     }
-/* @font-face {
-  font-family: 'Ma Shan Zheng';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 400;
-  src: url(@fontsource/ma-shan-zheng/files/ma-shan-zheng-latin-400-normal.woff2) format('woff2'), url(@fontsource/ma-shan-zheng/files/ma-shan-zheng-latin-400-normal.woff) format('woff');
-  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
-} */
  
     :where(body,html):not(.code > *, .code) {
-      font-family: 'Ma Shan Zheng', cursive;
+      /* font-family: 'Ma Shan Zheng', cursive; */
+      /* font-family: cursive; */
       background-color: #fafafa;
     }
     
     html {
       font-size: calc(var(--base-font-size) * 1px);
       --html-font-size: var(--base-font-size);
-    }
-    @media screen and (min-width: 375px) {
-      html {
-          /*     375px作为16px基准，414px宽度时正好对应18px的根字号大小   */
-          font-size: calc(calc(var(--html-font-size) * 1px) + 2 * (100vw - 375px) / 39);
-      }
-    }
-    @media screen and (min-width: 414px) {
-      /*  屏幕宽度414px到1000px，根字号大小累积增加4px（18px-22px)  */
-      html {
-          font-size: calc(calc(calc(var(--html-font-size) + 4) * 1px) + 4 * (100vw - 414px) / 786);
-      }
-    }
-
-    @media screen and (min-width: 1200px) {
-      html {
-          /*    屏幕宽度从1000px往后每增加100px，根字号大小就增加0.5px    */
-          font-size: calc(calc(calc(var(--html-font-size) + 8) * 1px) + 5 * (100vw - 1000px) / 1000);
-      }
     }
   }
 </style>

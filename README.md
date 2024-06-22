@@ -9,6 +9,7 @@ I love Astro, it gets me jobs and makes me improve my skills!
 
 # plan
 
-- [ ] Add comment function
+- [x] Add comment function
 - [ ] Diablo mode
-- [ ] Responsive functionality
+- [x] Responsive functionality
+- [ ] A bottom toolbar with functions such as sharing, directory, etc.
