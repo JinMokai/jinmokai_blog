@@ -7,7 +7,7 @@ import Classify from '@src/components/blog/classify.astro'
 
 <PostsLayout>
 	<main class="max-w-[90%] md:max-w-[75ch] mx-auto">
-		<h1 class="text-3xl font-bold mb-4 typing-demo">欢迎来到我的个人博客❤️</h1>
+      <h1 class="text-xl md:text-3xl transition-[font-size] font-bold mb-4 typing-demo">欢迎来到我的个人博客❤️</h1>
 		<Author />
     <Classify />
 		<Footer />
@@ -16,7 +16,7 @@ import Classify from '@src/components/blog/classify.astro'
 
 <style>
 	.typing-demo {
-      width: 12em;
+      width: fit-content;
       animation: typing 2s steps(12, end), blink 0.5s step-end infinite alternate;
 	  border-right: 3px solid;
       white-space: nowrap;
