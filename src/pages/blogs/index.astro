@@ -22,7 +22,7 @@ const images = import.meta.glob('/src/assets/blogs/*/*.{jpeg,jpg,png,gif}')
 ---
 
 <PostsLayout>
-    <main class="max-w-[75ch] mx-auto">
+    <main class="max-w-[90%] md:max-w-[75ch] mx-auto">
         <h1 class="text-3xl font-bold text-center mb-8">文章</h1>
         {
             blogsInfo.map(item => {
