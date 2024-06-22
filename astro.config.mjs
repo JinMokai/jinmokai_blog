@@ -22,16 +22,23 @@ export default defineConfig({
       }
     }
   }), tailwind(), pagefind(), playformCompress({
-    CSS: {
-      lightningcss: {
-        minify: true
-      }
-    },
+    // CSS: {
+    //   lightningcss: {
+    //     minify: true
+    //   }
+    //   // csso: {
+    //   //   restructure: false
+    //   // }
+    // },
+    CSS: false,
     HTML: {
       "html-minifier-terser": {
         removeComments: true
       }
     },
     Image: false
-  }), robotsTxt(), sitemap()]
+  }), robotsTxt(), sitemap()],
+  devToolbar: {
+    enabled: false
+  }
 });

@@ -30,6 +30,7 @@ const { title } = Astro.props
   @tailwind utilities;
   @layer base {
     :root {
+      --base-font-size: 8;
       --code-bg: 245 245 245;
       --gray-0: #f8f9fa;
       --gray-1: #f1f3f5;
@@ -45,6 +46,30 @@ const { title } = Astro.props
     :where(body,html):not(.code > *, .code) {
       font-family: 'Ma Shan Zheng', cursive;
       background-color: #fafafa;
+    }
+    
+    html {
+      font-size: calc(var(--base-font-size) * 1px);
+      --html-font-size: var(--base-font-size);
+    }
+    @media screen and (min-width: 375px) {
+      html {
+          /*     375px作为16px基准，414px宽度时正好对应18px的根字号大小   */
+          font-size: calc(calc(var(--html-font-size) * 1px) + 2 * (100vw - 375px) / 39);
+      }
+    }
+    @media screen and (min-width: 414px) {
+      /*  屏幕宽度414px到1000px，根字号大小累积增加4px（18px-22px)  */
+      html {
+          font-size: calc(calc(calc(var(--html-font-size) + 4) * 1px) + 4 * (100vw - 414px) / 786);
+      }
+    }
+
+    @media screen and (min-width: 1200px) {
+      html {
+          /*    屏幕宽度从1000px往后每增加100px，根字号大小就增加0.5px    */
+          font-size: calc(calc(calc(var(--html-font-size) + 8) * 1px) + 5 * (100vw - 1000px) / 1000);
+      }
     }
   }
 </style>

@@ -5,7 +5,7 @@ export interface Props {
 const { customClassName } = Astro.props
 ---
 
-<footer class="jinmokai-footer leading-6 text-center text-gray-500 py-4 mt-12 w-max whitespace-normal" class:list={customClassName ? customClassName : ''}>
+<footer class="jinmokai-footer leading-6 text-center text-gray-500 py-4 mt-12" class:list={customClassName ? customClassName : ''}>
     <p>© 2024 Copyright jinkai. All rights reserved. Made in China use Astro ❤️</p>
 </footer>
 
@@ -22,7 +22,8 @@ function adjustFooterPosition() {
     (footer).style.position = 'fixed';
     (footer).style.bottom = '0';
     (footer).style.left = '50%';
-    (footer).style.transform = 'translateX(-50%)'
+    (footer).style.transform = 'translateX(-50%)';
+    (footer).style.width = '100%';
   } else {
     (footer).style.position = 'relative';
     (footer).style.bottom = 'auto';
