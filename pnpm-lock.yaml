@@ -35,6 +35,9 @@ dependencies:
   astro:
     specifier: ^4.11.0
     version: 4.11.0(lightningcss@1.25.1)(terser@5.31.1)(typescript@5.4.5)
+  astro-loading-indicator:
+    specifier: ^0.5.0
+    version: 0.5.0(astro@4.11.0)
   astro-pagefind:
     specifier: ^1.5.0
     version: 1.5.0(astro@4.11.0)
@@ -2202,6 +2205,14 @@ packages:
       - supports-color
       - typescript
     dev: true
+
+  /astro-loading-indicator@0.5.0(astro@4.11.0):
+    resolution: {integrity: sha512-NU06AzJEzvlzXLac8ODFgHjzTDyaF/GV+nQQ7Rq21rCeSifhmLQu219lJukIUS0ySs4ySO4PAwcaHGClOSEufA==}
+    peerDependencies:
+      astro: ^4.0.0
+    dependencies:
+      astro: 4.11.0(lightningcss@1.25.1)(terser@5.31.1)(typescript@5.4.5)
+    dev: false
 
   /astro-pagefind@1.5.0(astro@4.11.0):
     resolution: {integrity: sha512-CN7Afe9qW640U1qliCQMXN259Dl6VPUnl8FneLfKE7STV4HLiif4PbNZejylC6yXYyP6uyNVDHNOfJfBBW5h6A==}
