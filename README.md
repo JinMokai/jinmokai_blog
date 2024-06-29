@@ -12,4 +12,3 @@ I love Astro, it gets me jobs and makes me improve my skills!
 - [x] Add comment function
 - [ ] Diablo mode
 - [x] Responsive functionality
-- [ ] A bottom toolbar with functions such as sharing, directory, etc.

@@ -37,8 +37,8 @@ const { Content } = await entry.render()
   <Footer />
 </PostsLayout>
 
-<script>
-  document.addEventListener('DOMContentLoaded',  () => {
+<script data-astro-rerun>
+  document.addEventListener('astro:page-load',  () => {
     const thElements = document.querySelectorAll('th:empty');
     const trElements = document.querySelectorAll('tr:empty');
     const tdElements = document.querySelectorAll('td:empty');
