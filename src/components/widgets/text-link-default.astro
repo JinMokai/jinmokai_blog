@@ -1,0 +1,9 @@
+---
+export interface Props {
+  text: string
+  link: string
+}
+const { text, link } = Astro.props
+---
+
+<a href={link} rel="noopener noreferrer" class="transition-all duration-300 ease-in-out text-link underline underline-offset-2 decoration-linkHover hover:decoration-link font-bold" target="_blank">{text}</a>

@@ -1,0 +1,23 @@
+---
+
+---
+
+<div class="jk-rtl-vertical" dir="rtl">
+    <slot />
+</div>
+
+<style is:global>
+.jk-rtl-vertical {
+    width: 100%;
+    writing-mode: vertical-rl; /* 从上到下，从右到左 */
+    direction: rtl; /* 右到左 */
+    text-align: right; /* 右对齐 */
+}
+.jk-rtl-vertical .zupu p:nth-child(1){
+    margin-top: 0;
+    text-align: end;
+}
+.jk-rtl-vertical .zupu p:not(:nth-child(1)) {
+    font-size: 2rem;
+}
+</style>
