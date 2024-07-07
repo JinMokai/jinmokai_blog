@@ -16,7 +16,7 @@ const assetsPhoto = import.meta.glob(
             Object.keys(PhotoList).reverse().map(year => (
                 <section class="mb-12">
                     <h2 class="text-xl font-bold mb-4 text-center">{year}年</h2>
-                    <div class="grid grid-cols-1 gap-x-4 items-start 3xl:grid-cols-3 md:grid-cols-2">
+                    <div class="grid grid-cols-1 gap-x-4 items-start 3xl:grid-cols-3 md:grid-cols-2 grid-flow-row-dense">
                         {/* TODO:dont's use js */}
                         {
                             PhotoList[year].sort((a, b) => new Date(b.date as string).getTime() - new Date(a.date as string).getTime()).map(item => (
