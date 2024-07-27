@@ -5,6 +5,8 @@ import PostsLayout from '@src/layout/postsLayout.astro'
 import HeadContent from '@src/components/blog/HeadContent.astro'
 import Footer from '@src/components/blog/Footer.astro'
 import PostComments from '@src/components/ui/PostComments.astro'
+import LeftTool from '@src/components/widgets/toolBar/index.astro'
+
 export async function getStaticPaths() {
   const blogs = await getCollection('blogs')
   const blogsList = blogs.filter((item) => !item.data.draft)
@@ -22,6 +24,12 @@ export async function getStaticPaths() {
 const { blog } = Astro.params
 const { entry } = Astro.props
 const { Content } = await entry.render()
+
+const shareData = {
+  title: entry.data.title,
+  text: entry.data.description,
+  url: `${Astro.site}${entry.slug}`,
+}
 ---
 
 <PostsLayout title={blog}>
@@ -32,12 +40,13 @@ const { Content } = await entry.render()
         {Content ? <Content /> : <Fragment set:html={entry.body} />}
       </div>
       <PostComments />
+      <LeftTool shareData={shareData}/>
     </div>
   </main>
   <Footer />
 </PostsLayout>
 
-<script data-astro-rerun>
+<script data-astro-rerun is:inline>
   document.addEventListener('astro:page-load',  () => {
     const thElements = document.querySelectorAll('th:empty');
     const trElements = document.querySelectorAll('tr:empty');

@@ -16,7 +16,7 @@ const { title, clean, noShowHead } = Astro.props
             <Header />
         )
     }
-    <div class:list={clean ? '' :'pt-24'}>
+    <div class:list={clean ? '' :'pt-24'} class="mb-[40px]">
         <slot />
     </div>
 </BaseLayout>

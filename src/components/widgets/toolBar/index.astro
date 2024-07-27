@@ -1,0 +1,48 @@
+---
+import GoBack from '@src/components/widgets/toolBar/goBack.astro'
+import Share from '@src/components/widgets/toolBar/share.astro'
+import GoComment from '@src/components/widgets/toolBar/goComment.astro'
+import type {shareData} from '@src/components/widgets/toolBar/interface'
+
+const fontSize = {
+    style: 'font-size: 1.5em;'
+}
+interface Props {
+    shareData: shareData
+}
+const props = Astro.props
+
+const { shareData } = props
+---
+
+<div class="fixed-tools">
+  <ol class="px-4 py-2 bg-white rounded-md shadow-lg flex flex-col gap-2">
+    <li><GoBack {...fontSize}/></li>
+    <li><Share fontSize={fontSize} shareData={shareData} /></li>
+    <li><GoComment {...fontSize}/></li>
+  </ol>
+</div>
+
+<style>
+    @media screen and (min-width: 768px) {
+        .fixed-tools {
+            @apply fixed left-0 top-[50%] -translate-y-1/2 z-50 flex flex-col items-center gap-4;
+        }
+    }
+    @media screen and (max-width: 768px) {
+        .fixed-tools {
+            @apply fixed left-0 bottom-0 z-50 flex flex-row items-center justify-center gap-4 w-full bg-white;
+        }
+        .fixed-tools ol {
+            width: 100%;
+            flex-direction: row;
+            justify-content: space-around;
+            @apply drop-shadow-lg;
+        }
+        .fixed-tools ol li {
+            display: flex;
+            flex: 1;
+            justify-content: center;
+        }
+    }
+</style>
