@@ -1,0 +1,146 @@
+---
+title: "生活日记2024-7-28"
+pubDate: "2024-7-28"
+updateDate: ""
+description: ""
+author: "ch_kai"
+image:
+  url: ""
+  alt: ""
+tags: ["生活日记"]
+draft: false
+---
+
+import { Picture } from "astro:assets";
+import TextLink from '@src/components/widgets/text-link.astro'
+import ImageTip from "@src/components/ui/ImageTip.astro";
+
+import image01 from '@src/assets/blogs/生活日记20240728/IMG_20240728_125710.jpg'
+import image02 from '@src/assets/blogs/生活日记20240728/IMG_20240728_131651.jpg'
+import image03 from '@src/assets/blogs/生活日记20240728/IMG_20240728_151125.jpg'
+import image04 from '@src/assets/blogs/生活日记20240728/IMG_20240728_154107.jpg'
+import image05 from '@src/assets/blogs/生活日记20240728/IMG_20240728_181249.jpg'
+import image06 from '@src/assets/blogs/生活日记20240728/IMG_20240728_190729.jpg'
+import image07 from '@src/assets/blogs/生活日记20240728/IMG_20240728_191346.jpg'
+import Music from '@src/assets/blogs/生活日记20240728/牡丹江-南拳妈妈.mp3'
+import musicText from '@src/assets/blogs/生活日记20240728/牡丹江-南拳妈妈.vtt'
+
+
+最近一直单曲听这首歌，很不错，骑行也听，写代码也听
+
+<audio controls id="audio">
+  <source src={Music} type="audio/mp3" />
+  <track id="track" src={musicText} kind="subtitles" srclang="zh-CN" label="Chinese" />
+  你的浏览器不支持该音乐
+</audio>
+
+前段时间一直加班，今天终于有双休了，昨天（周六）天气挺好骑单车随便逛了逛，中午又睡了一觉，基本没什么事情
+
+今天周末，早上吃饭完，写了一会代码，最近在写一个Webcomponent组件，目前还在技术方案选型中，看能不能实现
+
+可能是状态不好，写了一会就睡觉了，醒来被朋友叫醒
+
+他说他到浙江省图书馆去了，我想了想，也打算过去，顺便将之前借的图书还了
+
+我的朋友姓 <TextLink text={'严'} link={'https://github.com/gray-pigeons'} /> ，赣州人，19年大学相识，目前从事游戏开发，主攻C#，虚拟引擎!
+
+睡醒，在小区外随便找了一家店，午饭吃的是烧鸭饭，花费20元
+
+<ImageTip>
+  <Picture  
+    src={image01} 
+    alt=""
+    formats={['avif', 'webp']}
+    slot={'image'}
+    class={'c-image'}
+  />
+</ImageTip>
+
+
+我这里距离浙图并不是很远，骑单车比坐高铁还近，打算骑单车过去
+
+<ImageTip>
+  <Picture  
+    src={image02} 
+    alt=""
+    formats={['avif', 'webp']}
+    slot={'image'}
+    class={'c-image'}
+  />
+</ImageTip>
+
+最近一直骑单车发现，有点爱上了单车的感觉，骑行过程能让我享受短暂的自由，摆脱孤单！
+
+
+到达浙图，找了一本vue2的设计书籍，公司项目中vue2,vue3各种各样，关于原理我都不是很懂，还是多看书多补充吧！
+
+<ImageTip>
+  <Picture  
+    src={image03} 
+    alt=""
+    formats={['avif', 'webp']}
+    slot={'image'}
+    class={'c-image'}
+  />
+</ImageTip>
+
+<ImageTip>
+  <Picture  
+    src={image04} 
+    alt=""
+    formats={['avif', 'webp']}
+    slot={'image'}
+    class={'c-image'}
+  />
+  <span slot="tip">我和老表耐心读书</span>
+</ImageTip>
+
+
+下午四点多，我们看的差不多了，老表借了一本关于游戏引擎的书籍，打算出去走走
+
+我们打算坐地铁到城站，附近有一个五柳巷历史街区，打算从这走走，一路往南到鼓楼以及胡雪岩故居，不过傍晚了，景区关门，我们也就外围走走看看
+
+我们无意中走到了一个小景区，因为傍晚了，没太阳，走走还是很不错的
+
+<ImageTip>
+  <Picture  
+    src={image05} 
+    alt=""
+    formats={['avif', 'webp']}
+    slot={'image'}
+    class={'c-image'}
+  />
+</ImageTip>
+
+
+晚上，我们有点饿了，在附近银泰找到一家日料店，主要做猪排饭，早期看过这类视频，很好吃，不过一直没找到这家店
+
+<ImageTip>
+  <Picture  
+    src={image06} 
+    alt=""
+    formats={['avif', 'webp']}
+    slot={'image'}
+    class={'c-image'}
+  />
+  <span slot="tip">等餐中</span>
+</ImageTip>
+
+
+猪排饭也叫（猪排丼），<TextLink text={'有兴趣可以看b站关于这类视频介绍'} link={`https://www.bilibili.com/video/BV1XC4y1m7U3/?share_source=copy_web&vd_source=78661765f09f389c71f37da2ac827538`} />
+
+
+
+<ImageTip>
+  <Picture  
+    src={image07} 
+    alt=""
+    formats={['avif', 'webp']}
+    slot={'image'}
+    class={'c-image'}
+  />
+</ImageTip>
+
+点了一个标准价格的花费49RMB，味道还可以，价格更贵的味道更丰富
+
+吃完饭，我们随便走走，就回家了
