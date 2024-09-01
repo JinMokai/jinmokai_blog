@@ -1,0 +1,290 @@
+---
+title: "HTML标签语义"
+pubDate: "2024-9-01"
+updateDate: ""
+description: "HTML标签语义化使用场景-摘录《HTML并不简单》张鑫旭著"
+author: "ch_kai"
+image: 
+    url: ""
+    alt: ""
+tags: ["HTML", '无障碍']
+draft: false
+---
+
+> 前言：本书主要摘录《HTML并不简单》一书，本文博客主要通过自己实践加深印象并方便自己日后查询
+
+# HTML语义标签
+
+## 页面布局相关标签使用
+
+HTML语义使用标准是会随着时间的变化而改变，而不是一成不变的
+
+例如 `<a>`标签里面包含 `<div>`这是不推荐的，现在这种方式却很常见，又例如`<i>`元素和`<b>`元素过去都是不推荐使用的，现在随着HTML5的推广，它有了自己独特的含义
+
+### header和footer标签
+
+过去`<header>`和`<footer>`标签使用场景往往都是在页面的头部或底部，现在使用场景可以放在文章头部或底部，也可以是组件头部或底部，例如：
+
+```html
+<div class="article">
+    <header>
+        <h1>文章标题</h1>
+    </header>
+    <div class="content">
+        <p>文章内容</p>
+    </div>
+    <footer>
+        <p>文章底部</p>
+    </footer>
+</div>
+```
+### main和aside标签
+
+`<main>`标签表示页面主要内容，`<aside>`标签表示与主要内容相关的内容，结构如下所示：
+
+```pug
+main
+    aside
+```
+主要就是`<main>`表示主内容区，`<aside>`表示次要内容区，不是侧边栏就一定使用`<aside>`标签，而是要有一定的关联性
+
+### nav标签
+
+主要语义就是表示页面导航，通常包含一组链接，用于帮助用户在网站进行跳转，例如很多网站导航、标签菜单都是适合场景，例如：
+
+```html
+<nav>
+    <ul>
+        <li><a href="#">首页</a></li>
+        <li><a href="#">产品</a></li>
+        <li><a href="#">关于</a></li>
+    </ul>
+</nav>
+```
+
+相反这不是多个导航链接场合都适合nav元素，例如网站底部的完全备案链接，都不适合`<nav>`元素
+
+### section元素
+
+`<section>`标签表示文档中的一个独立部分，通常包含一个标题，可以这么说只要带有标签独立部分（即带有h1-h6），都适合`<section>`元素。
+
+这种功能非常实用，只要是具有独立区域都可以使用，在很多非文档页面中也是非常常用的功能
+
+> 终于不用写烦人的div标签了，在后台系统开发中中因为懒，常常使用 .xx > div 来解决样式问题🤯 <br/>
+> 这就会导致出现css渲染很慢的情况
+
+## 文档结构信息标签使用
+
+### article标签
+
+在文档结构信息对语义化要求非常高，例如，新闻，博客，咨询，论坛，社交网站信息流中，这些也是HTML语义化价值最大化的使用场景
+
+### 比section元素更高一级的的article元素
+
+article标签通常包裹整个信息块，结构如下：
+
+```pug
+article
+    h1
+    section
+        h2
+        p
+    section
+        h2
+        p
+```
+
+如果出现article标签嵌套的情况，这是不符合语义的，内部的article请替换为section元素
+
+总结一下基本结构就是
+
+```pug
+body
+    main
+        article
+            h1
+            section
+                h2
+                p
+            section
+                h2
+                p
+```
+
+
+### h1-h6标签
+
+h1-h6标签表示标题，h1表示一级标题，h2表示二级标题，以此类推，h6表示六级标题，h1-h6标签通常用于文章标题，页面标题，组件标题等场景
+
+其中，一个页面一定只有一个一级标签，即`<h1>`元素最多出现一次，且必须最先出现
+
+对于工具类或应用网站，`<h1>`元素往往会用在logo上，同时设置网站的名称，以便增加网站seo识别权重；再某种程度上`<h1>`标签可以和`<title>`有的一拼所以要慎用，如果发现网站已经添加了一个`<h1>`标签，就不要觉得无所谓，又额外添加`<h1>`标签，这会影响到seo,
+此时请使用`<h2>`标签或`<div>`添加`role='heading'`来保持标签语义
+
+另外标签一定不能跳级，若标签是`<h2>`，则不能使用`<h4>`标签，只能使用`<h3>`标签，一定要一级一级的来
+
+### hrgroup元素
+
+`<hgroup>`标签主要用来包裹标签和补充信息，而补充信息往往是一个或多个`<p>`元素。
+
+```pug
+<hgroup>
+    <h1>文章标题</h1>
+    <h2>副标题</h2>
+</hgroup>
+```
+
+效果如下
+
+<div style="border: 1px solid #ccc; padding: 5px;" class="not-prose">
+    <hgroup>
+        <h1>文章标题</h1>
+        <h2>副标题</h2>
+    </hgroup>
+</div>
+
+
+
+### 引用元素区别blockquote,q,cite区别
+
+表示引用元素有这三种，区别就是
+
+- `<blockquote>`标签表示长篇引用，通常是一段话或某个章节
+
+```pug
+<blockquote>
+    <p>这是一段引用内容</p>
+    <p>这是一段引用内容</p>
+</blockquote>
+```
+
+效果如下
+
+<div style="border: 1px solid #ccc; padding: 5px;" class="not-prose">
+    <blockquote>
+        <p>这是一段引用内容</p>
+        <p>这是一段引用内容</p>
+    </blockquote>
+</div>
+
+- `<q>`标签表示短篇引用，通常是一句话
+
+q元素和blockquote元素语义本质一样，（q本质就是quote的缩写）
+
+默认情况下blockquote是块级元素，同时在上下左右都会有默认margin距离。而q元素是行内元素，没有默认margin距离，但前后会增加引号
+
+效果如下
+
+<div style="border: 1px solid #ccc; padding: 5px;" class="not-prose"><q>这是一段引用内容</q></div>
+
+q标签还有一个属性叫cite，表示引用来源，此属性必须为url地址，例如：
+
+景德镇浮梁有一个`<q cite="https://www.sohu.com/a/297814384_120042177">金公祠</q>`
+
+<div class="not-prose" style="border: 1px solid #ccc; padding: 5px;">
+    <q cite="https://www.sohu.com/a/297814384_120042177">金公祠</q>
+</div>
+
+最后聊聊cite引用，虽然也是引用但是通常`<cite>`标签通常表示特殊特殊的名词，而不是言论引用
+
+例如：
+
+```pug
+<cite>《HTML并不简单》</cite>是由张鑫旭编写
+```
+
+效果如下
+
+<div class="not-prose" style="border: 1px solid #ccc; padding: 5px;">
+    <cite>《HTML并不简单》</cite>是由张鑫旭编写
+</div>
+
+默认cite标签会让字体斜体，因为英文字体不规则，体量小，所以专门设计倾斜字体样式很方便，特殊名称保持倾斜会很让人识别，不影响阅读，是很好的体验。
+但是对于东南亚语言而言，这就不是很好的体验了，我们的中文斜体对于人力成本是巨大的，且中文字体倾斜都是采用算法强制倾斜，人力成本巨大，如果一定要使用的话，请采用`font-style: normal`来设置字体
+
+
+
+### 倾斜字体i，b，em，strong
+
+i和em使用区别就是，这两个都可以让文字倾斜，且都表示当前文本和周围有所不同，他们区别是什么呢？
+
+那就是屏幕阅读器的语气感情色彩
+
+例如：
+
+```
+我们都羡慕人人都嫁给爱情，但是我们更重要的是爱<em>自己</em>
+
+```
+
+效果如下：
+
+<div class="not-prose" style="border: 1px solid #ccc; padding: 5px;">
+    我们都羡慕人人都嫁给爱情，但是我们更重要的是爱<em>自己</em>
+</div>
+
+
+## 养成习惯的time标签
+
+`<time>`标签通常表示时间日期，如果涉及到时间相关的可以无脑使用
+
+例如：
+
+```html
+
+评论发表于<time>刚刚</time>
+
+```
+
+效果如下：
+
+<div class="not-prose" style="border: 1px solid #ccc; padding: 5px;">
+    评论发表于<time>刚刚</time>
+</div>
+
+如果数据允许，精确时间值可以使用datetime属性标记，例如：
+
+```html
+评论发表于<time datetime="2023-01-01T00:00:00+08:00">刚刚</time>
+```
+效果如下：
+
+<div class="not-prose" style="border: 1px solid #ccc; padding: 5px;">
+    评论发表于<time datetime="2023-01-01T00:00:00+08:00">刚刚</time>
+</div>
+
+这里的datetime属性格式要求比较松散，只要是时间都可以，可以仅仅是年份，例如2024，也可以仅仅是小时和分钟，例如15:30，甚至可以是持续时间，例如PT4H18M3S
+
+且使用time标签用css样式匹配也是非常安全
+
+```css
+.desc time {
+    color: red;
+    ...
+}
+```
+
+## 内联元素
+
+### 超过一半的span可以用data来替换
+
+在一些工具，偏应用类的web产品中，一定会有大量来自数据库中的数据字段，这些数据往往采用`<span>`元素呈现，现在，请使用`<data>`元素替代
+
+```html
+
+<section>
+    <div>
+        <data value="2024">年份</data>
+    </div> 
+</section>
+
+```
+
+对于动态数据采用data标签，不仅对开发者友好，也对机器友好，其支持一个原生value的属性值，用来设置机器人识别信息；对于span元素，当我们需要挂在数据的时候需要在dom上挂载信息的时候
+只能使用data-*自定义属性，例如：
+
+```html
+<span data-id="2024">年份</span>
+```
+
+然后通过span.dataset.id来获取span上面的id数据，而使用data获取数据只需要data.value即可
