@@ -7,7 +7,7 @@ import myAuthor from '@src/assets/author/2023-10.png'
 ---
 
 <article>
-    <div class="max-w-40 rounded-full overflow-hidden shadow-lg mb-2 animate-pulse">
+    <div class="max-w-40 rounded-full overflow-hidden shadow-lg mb-2 animate-pulse cursor-pointer" onclick=`window.open('${myAuthor && myAuthor.src}','popup','width=504,height=470,scrollbars=no,resizable=no,toolbar=no,directories=no,location=no,menubar=no,status=no,left=0,top=0'); return false`>
         <Picture src={myAuthor} alt="作者2023年10月拍摄" formats={["avif", "webp"]} />
     </div>
     <p class="text-lg inline-flex">
