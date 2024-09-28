@@ -31,7 +31,7 @@ export async function getStaticPaths() {
       props: {
         blogsInfo: blogsWithTag.map((item) => {
           return {
-            slug: item.slug,
+            slug: item.id,
             ...item.data,
           }
         }),

@@ -3,20 +3,14 @@
 */
 
 export interface Head {
-  id: string
-  slug: string
-  body: string
-  collection: string
-  data: {
-    title: string
-    tags: string[]
-    updateDate: string
-    pubDate: string
-    description: string
-    image: {
-      url: string
-      alt: string
-    }
-    draft: boolean
-  }
+  title: string;
+  image: {
+      url: string;
+      alt: string;
+  };
+  tags: string[];
+  updateDate: string;
+  pubDate: string;
+  description: string;
+  draft: boolean;
 }

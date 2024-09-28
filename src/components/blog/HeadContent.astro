@@ -2,7 +2,7 @@
 import type { Head } from '@src/components/ui/type'
 import Tag from '@src/components/widgets/tag.astro'
 export interface Props {
-  headInfo: Head
+  headInfo: Head,
 }
 const { headInfo } = Astro.props
 ---
@@ -27,15 +27,15 @@ const { headInfo } = Astro.props
 </div> -->
 <div class="flex justify-center flex-col w-full mb-4 items-center gap-6">
   <div>
-    <h1 class="text-5xl text-center font-black">{headInfo.slug}</h1>
+    <h1 class="text-5xl text-center font-black">{headInfo.title}</h1>
   </div>
   <div class="flex w-full justify-center">
     <div class="flex items-center justify-center gap-2">
       <div class="text-xs text-zinc-500">
-        <span>{headInfo.data.pubDate}</span>
+        <span>{headInfo.pubDate}</span>
       </div>
       <div class="text-xs text-zinc-500 flex gap-1">
-        {headInfo.data.tags.map((item) => (
+        {headInfo.tags.map((item) => (
           <a href={`/tags/${item}`}>
             <Tag tag={item} />
           </a>
@@ -43,5 +43,5 @@ const { headInfo } = Astro.props
       </div>
     </div>
   </div>
-  <p class="text-lg text-center text-zinc-700 max-w-[480px]">{headInfo.data.description}</p>
+  <p class="text-lg text-center text-zinc-700 max-w-[480px]">{headInfo.description}</p>
 </div>
