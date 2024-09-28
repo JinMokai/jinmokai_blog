@@ -14,7 +14,7 @@ const blogsList = blogs
   )
 const blogsInfo = blogsList.map((item) => {
   return {
-    slug: item.slug,
+    slug: item.id,
     ...item.data,
   }
 })

@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content'
+import { getCollection, render } from 'astro:content'
 import PostsLayout from '@src/layout/postsLayout.astro'
 // components
 import HeadContent from '@src/components/blog/HeadContent.astro'
@@ -13,7 +13,7 @@ export async function getStaticPaths() {
   return blogsList.map((entry) => {
     return {
       params: {
-        blog: entry.slug,
+        blog: entry.id,
       },
       props: {
         entry,
@@ -23,20 +23,21 @@ export async function getStaticPaths() {
 }
 const { blog } = Astro.params
 const { entry } = Astro.props
-const { Content } = await entry.render()
+const { Content } = await render(entry)
 
 const shareData = {
   title: entry.data.title,
   text: entry.data.description,
-  url: `${Astro.site}${entry.slug}`,
+  url: `${Astro.site}${entry.id}`,
 }
 ---
 
 <PostsLayout title={blog}>
   <main>
     <div class="flex flex-col items-center lg:max-w-[800px] max-w-[90%] mx-auto">
-       <HeadContent headInfo={entry}/>
+       <HeadContent headInfo={entry.data}/>
       <div class="prose prose-p:my-4 !max-w-[inherit] prose-headings:mb-2 prose-td:text-center prose-td:align-middle prose-th:whitespace-nowrap prose-blockquote:not-italic">
+        <!-- @ts-ignore -->
         {Content ? <Content /> : <Fragment set:html={entry.body} />}
       </div>
       <PostComments />
