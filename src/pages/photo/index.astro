@@ -2,7 +2,7 @@
 import PostsLayout from '@src/layout/postsLayout.astro'
 import Footer from '@src/components/blog/Footer.astro'
 import PhotoCard from '@src/components/ui/photoCard.astro'
-import { photo as PhotoList } from './index'
+import { photo as PhotoList } from './interface'
 
 const assetsPhoto = import.meta.glob(
   '/src/assets/photo/*/*.{jpeg,jpg,png,gif,webp}',
