@@ -6,6 +6,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro check && astro build && pagefind --site dist",
+    "build:server": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "format:biome": "npx @biomejs/biome format ./src --write",
@@ -17,6 +18,7 @@
     "@astrojs/rss": "^4.0.7",
     "@astrojs/sitemap": "^3.1.6",
     "@astrojs/tailwind": "^5.1.1",
+    "@astrojs/vercel": "^7.8.1",
     "@fontsource/ma-shan-zheng": "^5.0.12",
     "@playform/compress": "^0.0.12",
     "@tailwindcss/cli": "4.0.0-alpha.15",
@@ -27,7 +29,6 @@
     "astro-robots-txt": "^1.0.0",
     "autoprefixer": "^10.4.19",
     "cssnano": "^7.0.1",
-    "pagefind": "^1.1.0",
     "sharp": "^0.33.4",
     "tailwindcss": "3.4.3",
     "typescript": "^5.4.5"

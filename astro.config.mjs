@@ -7,11 +7,13 @@ import robotsTxt from "astro-robots-txt";
 
 import sitemap from "@astrojs/sitemap";
 
+import vercel from "@astrojs/vercel/serverless";
+
 // https://astro.build/config
 export default defineConfig({
   root: ".",
   site: "https://chkaiblog.eu.org/",
-  output: "static",
+  output: "server",
   prefetch: true,
   integrations: [mdx({
     syntaxHighlight: "shiki",
@@ -38,7 +40,13 @@ export default defineConfig({
     },
     Image: false
   }), robotsTxt(), sitemap()],
+
   devToolbar: {
     enabled: false
-  }
+  },
+
+  adapter: vercel({
+    imageService: true,
+    devImageService: 'sharp',
+  })
 });
