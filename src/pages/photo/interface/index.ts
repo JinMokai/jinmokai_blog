@@ -42,7 +42,7 @@ export const photo: PhotoListType = {
     },
     {
       link: '/src/assets/photo/2023/20230204.jpg',
-      info: '2023-2-4日鄱阳县上士湖鄱阳湖瓦屑坝博物馆湖边',
+      info: '2023-2-4日鄱阳县土湖鄱阳湖瓦屑坝博物馆湖边',
       date: '2023-2-4',
     },
     {
