@@ -5,11 +5,11 @@ export interface Props {
 const { customClassName } = Astro.props
 ---
 
-<footer class="jinmokai-footer leading-6 text-center text-gray-500 py-4 mt-12" class:list={customClassName ? customClassName : ''}>
+<footer class="jinmokai-footer leading-6 text-center text-gray-500 py-4 mt-auto max-w-[100%] ml-auto mr-auto" class:list={customClassName ? customClassName : ''}>
     <p>© 2024 Copyright jinkai. All rights reserved. Made in China use Astro ❤️</p>
 </footer>
 
-<script data-astro-rerun is:inline>
+<!-- <script data-astro-rerun is:inline>
 
 function adjustFooterPosition() {
   const footer = document.querySelector('.jinmokai-footer');
@@ -54,4 +54,4 @@ window.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('astro:page-load', () => {
   adjustFooterPosition()
 })
-</script>
+</script> -->

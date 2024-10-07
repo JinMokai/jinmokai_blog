@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@src/layout/baseLayout.astro'
 import Header from '@src/components/blog/Header.astro'
+import Footer from '@src/components/blog/Footer.astro'
 
 export interface Props {
   title?: string
@@ -11,13 +12,16 @@ const { title, clean, noShowHead } = Astro.props
 ---
 
 <BaseLayout title={title ? title : ''}>
-    {
-        !noShowHead && (
-            <Header />
-        )
-    }
-    <div class:list={clean ? '' :'pt-24'} class="mb-[40px]">
-        <slot />
+    <div class="flex flex-col min-h-screen">
+      {
+          !noShowHead && (
+              <Header />
+          )
+      }
+      <div class:list={clean ? '' :'pt-24'} class="mb-[40px]">
+          <slot />
+      </div>
+      <Footer />
     </div>
 </BaseLayout>
 
