@@ -1,7 +1,6 @@
 ---
 import BlogCard from '@src/components/blog/blogCard.astro'
 import PostsLayout from '@src/layout/postsLayout.astro'
-import Footer from '@src/components/blog/Footer.astro'
 import { getCollection } from 'astro:content'
 
 const blogs = await getCollection('blogs')
@@ -30,5 +29,4 @@ const images = import.meta.glob('/src/assets/blogs/*/*.{jpeg,jpg,png,gif}')
             })
         }
     </main>
-    <Footer />
 </PostsLayout>

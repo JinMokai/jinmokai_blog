@@ -3,7 +3,6 @@ import { getCollection, render } from 'astro:content'
 import PostsLayout from '@src/layout/postsLayout.astro'
 // components
 import HeadContent from '@src/components/blog/HeadContent.astro'
-import Footer from '@src/components/blog/Footer.astro'
 import PostComments from '@src/components/ui/PostComments.astro'
 import LeftTool from '@src/components/widgets/toolBar/index.astro'
 
@@ -44,7 +43,6 @@ const shareData = {
       <LeftTool shareData={shareData}/>
     </div>
   </main>
-  <Footer />
 </PostsLayout>
 
 <script data-astro-rerun is:inline>
