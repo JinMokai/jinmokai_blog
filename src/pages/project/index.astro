@@ -9,11 +9,11 @@ import { projectList as ProjectList } from './interface'
 		<h1 class="text-3xl font-bold text-center mb-8">项目</h1>
         {
             ProjectList.length !== 0 ? (
-                <ul>
+                <article>
                     {ProjectList.map((project) => (
                         <ProjectCard name={project.name} description={project.description} link={project.link} />
                     ))}
-                </ul>
+                </article>
             ) : (
                 <div class="text-center">暂无项目</div>
             )
