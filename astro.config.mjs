@@ -7,6 +7,8 @@ import robotsTxt from "astro-robots-txt";
 
 import sitemap from "@astrojs/sitemap";
 
+import vue from "@astrojs/vue";
+
 // https://astro.build/config
 export default defineConfig({
   root: ".",
@@ -37,7 +39,9 @@ export default defineConfig({
       }
     },
     Image: false
-  }), robotsTxt(), sitemap()],
+  }), robotsTxt(), sitemap(), vue({
+    jsx: true
+  })],
   devToolbar: {
     enabled: false
   }

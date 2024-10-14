@@ -28,8 +28,8 @@ const imageSrc = imageImport ? (await imageImport()).default : null
     {
       imageSrc !== null ? (
       <div class="flex-1 hidden md:block max-h-52 overflow-hidden">
-        <a class="flex items-center justify-center animate-pulse" href={'/blogs/' + data.slug}>
-          {imageSrc && <Image src={imageSrc} alt={data.image.alt} title={data.image.alt}/>}
+        <a class="flex items-center justify-center animate-pulse" href={'/blogs/' + data.slug} aria-label={data.image.alt ? data.image.alt : data.title}>
+          {imageSrc && <Image src={imageSrc} alt={data.image.alt} title={data.image.alt ? data.image.alt : data.title}/>}
         </a>
       </div>
       ) : null
@@ -39,6 +39,6 @@ const imageSrc = imageImport ? (await imageImport()).default : null
           <a href={'/blogs/' + data.slug}>{data.title}</a>
         </h1>
         <p class="text-gray-500 pt-3 line-clamp-5">{data.description}</p>
-        <span class="absolute bottom-0 right-0 text-gray-400">{data.pubDate}</span>
+        <span class="absolute bottom-0 right-0 text-gray-600">{data.pubDate}</span>
     </div>
 </div>

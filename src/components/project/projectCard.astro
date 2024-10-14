@@ -6,7 +6,7 @@ export interface Props {
 }
 const { name, description, link } = Astro.props
 ---
-<div class="w-full px-4 py-2 rounded-lg bg-white shadow-lg border-gray-800 mb-4">
+<section class="w-full px-4 py-2 rounded-lg bg-white shadow-lg border-gray-800 mb-4">
     <h1 class="text-xl font-semibold text-gray-900">{name}</h1>
     <p class="text-gray-500">{description}</p>
     <div class="inline-flex justify-end w-full">
@@ -14,4 +14,4 @@ const { name, description, link } = Astro.props
             {link}
         </a>
     </div>
-</div>
+</section>
