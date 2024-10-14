@@ -1,7 +1,7 @@
 ---
-import { Image } from 'astro:assets';
 import PostsLayout from '@src/layout/postsLayout.astro'
 import TextLink from '@src/components/widgets/text-link.astro'
+import RenderImage from './components/renderImage.tsx'
 import { links } from './interface'
 ---
 
@@ -12,9 +12,7 @@ import { links } from './interface'
                 links.map(link => {
                     return (
                         <li class="mb-4 flex items-start gap-4">
-                            {
-                                link.icon && <Image src={link.icon} width={50} height={50} title={link.title} alt={link.alt}/>
-                            }
+                            <RenderImage imageData={link} client:visible />
                             <div class="flex flex-col gap-1">
                                 <TextLink text={link.url} link={link.url}/>
                                 <p class="text-sm">{link.desc}</p>
