@@ -24,15 +24,12 @@ export default defineConfig({
       }
     }
   }), tailwind(), pagefind(), playformCompress({
-    // CSS: {
-    //   lightningcss: {
-    //     minify: true
-    //   }
-    //   // csso: {
-    //   //   restructure: false
-    //   // }
-    // },
-    CSS: false,
+    CSS: {
+      lightningcss: {
+        minify: true
+      },
+      csso: false
+    },
     HTML: {
       "html-minifier-terser": {
         removeComments: true
