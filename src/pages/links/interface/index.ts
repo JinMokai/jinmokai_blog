@@ -1,6 +1,6 @@
 // 友联
 
-interface link {
+export interface link {
     name: string
     url: string
     alt: string

@@ -41,6 +41,9 @@ importers:
       astro:
         specifier: 5.0.0-beta.5
         version: 5.0.0-beta.5(@types/node@20.14.12)(lightningcss@1.25.1)(rollup@4.24.0)(terser@5.31.1)(typescript@5.5.4)
+      astro-compressor:
+        specifier: ^0.4.1
+        version: 0.4.1
       astro-loading-indicator:
         specifier: ^0.5.0
         version: 0.5.0(astro@5.0.0-beta.5(@types/node@20.14.12)(lightningcss@1.25.1)(rollup@4.24.0)(terser@5.31.1)(typescript@5.5.4))
@@ -1607,6 +1610,9 @@ packages:
   astring@1.8.6:
     resolution: {integrity: sha512-ISvCdHdlTDlH5IpxQJIex7BWBywFWgjJSVdwst+/iQCoEYnyOaQ95+X1JGshuBjGp6nxKUy1jMgE3zPqN7fQdg==}
     hasBin: true
+
+  astro-compressor@0.4.1:
+    resolution: {integrity: sha512-IAgYAlxYRMolaptsFB9quH7RxX4eUeC4UfULCPhT+ILcg7m1kbaxuyUKqGg9Hh+KZ+FNPPDAz7DqUfl+HDWhQg==}
 
   astro-eslint-parser@1.0.2:
     resolution: {integrity: sha512-8hJaCuqxObShWl2wEsnASqh/DbQ2O+S66m0Q3ctJlzBPEQ4pfGwwama3FCjZO3GDLQsjvn1T0v93Vxyu/+5fGw==}
@@ -5919,6 +5925,8 @@ snapshots:
   ast-types-flow@0.0.8: {}
 
   astring@1.8.6: {}
+
+  astro-compressor@0.4.1: {}
 
   astro-eslint-parser@1.0.2(typescript@5.5.4):
     dependencies:

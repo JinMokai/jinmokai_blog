@@ -1,0 +1,22 @@
+---
+import type { link as Link } from '@src/pages/links/interface/index.ts'
+interface Props {
+  imageData: Link
+}
+const { imageData } = Astro.props
+---
+
+{
+    imageData?.icon && (
+      <img
+        src={imageData.icon}
+        title={imageData.title}
+        alt={imageData.alt}
+        width={"50"}
+        height={"50"}
+        loading="lazy"
+        decoding="async"
+        class={'cursor-pointer frend-link-item'}
+      />
+    )
+}

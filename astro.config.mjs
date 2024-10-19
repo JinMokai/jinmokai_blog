@@ -8,6 +8,8 @@ import robotsTxt from "astro-robots-txt";
 import sitemap from "@astrojs/sitemap";
 
 import vue from "@astrojs/vue";
+// compressor must in integrations last
+import compressor from "astro-compressor";
 
 // https://astro.build/config
 export default defineConfig({
@@ -38,6 +40,9 @@ export default defineConfig({
     Image: false
   }), robotsTxt(), sitemap(), vue({
     jsx: true
+  }), compressor({
+    gzip: true,
+    brotli: false
   })],
   devToolbar: {
     enabled: false
