@@ -18,7 +18,14 @@ const { title } = Astro.props
     />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={'Jinmokai\'s blog'} />
+    <meta name="description" content={'我是一位在中国杭州的开发者，目前在杭州，喜欢Astro,vue等技术，喜欢记录一些日常生活和自己感兴趣历史考究，欢迎交流'} />
+    <meta name="keywords" content="Jinmokai,JinKai,个人博客,开发者,前端,技术,生活记录,历史考究,Astro" />
+    <meta property="og:title" content={title ? title : `Jinmokai's blog`}/>
+    <meta property="og:description" content={'我是一位在中国杭州的开发者，目前在杭州，喜欢Astro,vue等技术，喜欢记录一些日常生活和自己感兴趣历史考究，欢迎交流'} />
+    <meta property="og:image" content={'https://jinmokai.com/favicon.svg'} />
+    <meta property="og:url" content={Astro.site} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="zh_CN" />
     <title>{title ? title : `Jinmokai's blog`}</title>
     <ClientRouter />
     <LoadingIndicator color='#2292CE' height='6px'/>

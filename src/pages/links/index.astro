@@ -1,18 +1,18 @@
 ---
 import PostsLayout from '@src/layout/postsLayout.astro'
 import TextLink from '@src/components/widgets/text-link.astro'
-import RenderImage from './components/renderImage.tsx'
+import RenderImage from './components/renderImage.astro'
 import { links } from './interface'
 ---
 
 <PostsLayout>
     <main class="max-w-[90%] md:max-w-[75ch] mx-auto">
-        <ul>
+        <ul class="friend-links">
             {
                 links.map(link => {
                     return (
                         <li class="mb-4 flex items-start gap-4">
-                            <RenderImage imageData={link} client:visible />
+                            <RenderImage imageData={link} />
                             <div class="flex flex-col gap-1">
                                 <TextLink text={link.url} link={link.url}/>
                                 <p class="text-sm">{link.desc}</p>
@@ -24,3 +24,26 @@ import { links } from './interface'
         </ul>
     </main>
 </PostsLayout>
+
+<script data-astro-rerun is:inline>
+
+    document.addEventListener('astro:page-load', () => {
+        const friendLinks = document.querySelector('.friend-links')
+        if (!friendLinks) return;
+        const clickHandler = (e) => {
+        const target = e.target
+            if (target && target.classList.contains('frend-link-item')) {
+                let url = target.getAttribute('src')
+                if (!url) return;
+                window.open(
+                    `${url}`,
+                    "popup",
+                    `width=504,height=470,scrollbars=no,resizable=no,toolbar=no,
+                    directories=no,location=no,menubar=no,status=no,left=0,top=0`
+                );
+            }
+        }
+        friendLinks.addEventListener('click', clickHandler)
+    })
+
+</script>
