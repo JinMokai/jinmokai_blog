@@ -25,24 +25,24 @@ import { links } from './interface'
     </main>
 </PostsLayout>
 
-<script>
-    const clickHandler = (e: Event) => {
-        const target = e.target as Element
-        if (target && target.classList.contains('frend-link-item')) {
-            let url = target.getAttribute('src')
-            if (!url) return;
-            window.open(
-                `${url}`,
-                "popup",
-                `width=504,height=470,scrollbars=no,resizable=no,toolbar=no,
-                directories=no,location=no,menubar=no,status=no,left=0,top=0`
-            );
-        }
-    }
+<script data-astro-rerun is:inline>
 
     document.addEventListener('astro:page-load', () => {
         const friendLinks = document.querySelector('.friend-links')
         if (!friendLinks) return;
+        const clickHandler = (e) => {
+        const target = e.target
+            if (target && target.classList.contains('frend-link-item')) {
+                let url = target.getAttribute('src')
+                if (!url) return;
+                window.open(
+                    `${url}`,
+                    "popup",
+                    `width=504,height=470,scrollbars=no,resizable=no,toolbar=no,
+                    directories=no,location=no,menubar=no,status=no,left=0,top=0`
+                );
+            }
+        }
         friendLinks.addEventListener('click', clickHandler)
     })
 
