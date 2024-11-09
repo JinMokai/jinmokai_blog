@@ -14,7 +14,7 @@ import compressor from "astro-compressor";
 // https://astro.build/config
 export default defineConfig({
   root: ".",
-  site: "https://chkaiblog.eu.org/",
+  site: "https://www.jinmokai.tech/",
   output: "static",
   prefetch: true,
   integrations: [mdx({
