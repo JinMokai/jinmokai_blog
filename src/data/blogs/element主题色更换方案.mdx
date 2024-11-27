@@ -1,0 +1,33 @@
+---
+title: "element主题色更换方案"
+pubDate: "2024-11-27"
+updateDate: ""
+description: "element主题色更换方案,笔记迁移最早写于24年3月2日"
+author: "ch_kai"
+image: 
+    url: ""
+    alt: ""
+tags: ["element-ui", "css"]
+draft: false
+---
+
+
+最近再做一些企业特征项目，主要就是换肤，icon更换之类的，根据有主题色彩的项目！
+
+我们公司项目组件库主要有是基于element二次开发的组件库，版本有element和element-plus两个版本。
+
+先来谈谈最简单的element-plus吧，为什么最简单，因为它里面的换肤采用的是css变量的方式，我们开发者想要基于之前的主题开发就会显得更简单，直接替换掉css变量即可实现，我认为这是技术的最佳实践！
+element的对应的是vue2版本，element和element-plus里面用到的主题都是scss文件。
+
+其中element中的没有采用css变量的方式，换肤变得不是技术最优解了！
+
+我们的项目采用的方案是scss变量+css变量的方式进行更换，通过将css变量赋值给scss变量，然后项目中用到的颜色值通过scss变量进行替换。(：当然了，我们采用一种渐进式的颜色，让颜色渐变
+
+当我们更改element主题时、将css变量赋值给scss变量的时候，会出现var(xx)不是一个颜色，为什么会这样？
+
+其实原因很简单：就是var是运行时，scss变量是编译时，所以出现这种问题。
+
+我只有三种方法
+1. 将element所有涉及的mix函数全部修改！缺点很明显，会出现改不下去的情况，越改越多
+2. 采用高兼容性版本css语法：color-mix来替换掉mix函数，并通过postcss来兼容低版本浏览器
+3. 所以我们对于element组件库，我们只能通过覆盖样式的方式，方式虽然傻
