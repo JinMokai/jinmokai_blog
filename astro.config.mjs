@@ -46,5 +46,11 @@ export default defineConfig({
   })],
   devToolbar: {
     enabled: false
-  }
+  },
+  image: {
+    experimentalLayout: 'responsive'
+  },
+  experimental: {
+    responsiveImages: true,
+  },
 });
