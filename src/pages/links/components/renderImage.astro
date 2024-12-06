@@ -1,5 +1,6 @@
 ---
 import type { link as Link } from '@src/pages/links/interface/index.ts'
+import { Image } from 'astro:assets'
 interface Props {
   imageData: Link
 }
@@ -8,7 +9,7 @@ const { imageData } = Astro.props
 
 {
     imageData?.icon && (
-      <img
+      <Image
         src={imageData.icon}
         title={imageData.title}
         alt={imageData.alt}
