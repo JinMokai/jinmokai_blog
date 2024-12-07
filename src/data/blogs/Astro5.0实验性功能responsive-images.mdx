@@ -1,0 +1,378 @@
+---
+title: "Astro5.0实验性功能responsive-images"
+pubDate: "2024-12-7"
+updateDate: ""
+description: "Astro5.0实验性功能responsive-images,2024年12月3号，astro5.0正式发布了!作为Astro爱好者，有一个新功能让我很喜爱，虽然这是实验性功能但是对于我来说这是一个非常值得兴奋的事！那就是responsive images！"
+author: "ch_kai"
+image:
+  url: ""
+  alt: ""
+tags: ["astro"]
+draft: false
+---
+import { Picture } from "astro:assets";
+import ImageTip from "@src/components/ui/ImageTip.astro";
+
+import image01 from "@src/assets/blogs/Astro5-responsive-images/image.png";
+import image02 from "@src/assets/blogs/Astro5-responsive-images/image2.png";
+import image03 from "@src/assets/blogs/Astro5-responsive-images/image3.png";
+import image04 from "@src/assets/blogs/Astro5-responsive-images/image4.png";
+import image05 from "@src/assets/blogs/Astro5-responsive-images/image5.png";
+import image06 from "@src/assets/blogs/Astro5-responsive-images/image6.png";
+
+# 背景历史
+
+在 Astro 5.0 版本之前，Astro 团队在图像优化方面做了大量工作。例如，他们在内置的图像组件中添加了许多功能，以改善累积布局偏移（CLS）和最大内容绘制（LCP）。通过引入 decoding 和 densities 属性，实现了响应式图像加载效果，并通过 format 属性支持多种图像格式渲染。此外，quality 属性也被添加，以调整图像的加载优先级。
+
+Astro 3.x 版本引入的 picture 组件，进一步增强了对多种格式图像加载的兼容性。尽管如此，Astro 团队在图像处理方面做了很多改进，但在高屏幕密度设备上自动加载高分辨率图像通常是不合理的。尤其是在移动设备上，高密度屏幕可能导致不必要的高分辨率图像下载，从而消耗更多的网络流量。
+
+> 该功能最早版本发布于2024年11月21号，包版本为[astro@5.0.0-beta.9](https://github.com/withastro/astro/releases/tag/astro%405.0.0-beta.9)
+
+# 基本功能
+
+> 以下操作都是生产开模式，图片路径会开发不一样
+
+最初的\<Image>和\<picture>组件加载信息都是这样的（未使用densities属性）：
+
+
+<ImageTip>
+  <Picture
+    src={image01}
+    alt={"Image components"}
+    formats={["avif", "webp"]}
+    slot={"image"}
+    class={"c-image"}
+  />
+  <span slot={'tip'}></span>
+</ImageTip>
+
+
+<ImageTip>
+  <Picture
+    src={image02}
+    alt={"picture components"}
+    formats={["avif", "webp"]}
+    slot={"image"}
+    class={"c-image"}
+  />
+  <span slot={'tip'}></span>
+</ImageTip>
+
+通过最新的[Astro5官网文档](https://docs.astro.build/en/reference/experimental-flags/responsive-images/)可以看到配置信息，添加实验性功能在配置文件中
+
+```mjs
+{
+  image: {
+    experimentalLayout: 'responsive'
+  },
+  experimental: {
+    responsiveImages: true,
+  },
+}
+```
+
+然后看到的Image组件和Picture组件效果就是：
+
+<ImageTip>
+  <Picture
+    src={image03}
+    alt={"Image components"}
+    formats={["avif", "webp"]}
+    slot={"image"}
+    class={"c-image"}
+  />
+  <span slot={'tip'}></span>
+</ImageTip>
+
+
+<ImageTip>
+  <Picture
+    src={image04}
+    alt={"picture components"}
+    formats={["avif", "webp"]}
+    slot={"image"}
+    class={"c-image"}
+  />
+  <span slot={'tip'}></span>
+</ImageTip>
+
+注意这里的sizes属性的min-width: 994px，这个994px的值是图片原始宽度，该值也会在srcset属性里面的控制最大值，下面有一个4096px的图片，渲染输出结果将会是：
+
+<ImageTip>
+  <Picture
+    src={image05}
+    alt={"picture components"}
+    formats={["avif", "webp"]}
+    slot={"image"}
+    class={"c-image"}
+  />
+  <span slot={'tip'}></span>
+</ImageTip>
+
+默认的这些断点是astro默认配置信息，最大支持6K
+
+```js
+		/**
+		 * @docs
+		 * @name image.experimentalBreakpoints
+		 * @type {number[]}
+		 * @default `[640, 750, 828, 1080, 1280, 1668, 2048, 2560] | [640, 750, 828, 960, 1080, 1280, 1668, 1920, 2048, 2560, 3200, 3840, 4480, 5120, 6016]`
+		 * @description
+		 * The breakpoints used to generate responsive images. Requires the `experimental.responsiveImages` flag to be enabled. The full list is not normally used,
+		 * but is filtered according to the source and output size. The defaults used depend on whether a local or remote image service is used. For remote services
+		 * the more comprehensive list is used, because only the required sizes are generated. For local services, the list is shorter to reduce the number of images generated.
+		 */
+		experimentalBreakpoints?: number[];
+```
+
+# 源码解析
+
+源码也是比较简单：
+不管是\<Image>组件还是\<picture>组件内部实现方式都是基于getImage函数做处理，getImage函数也是已经暴露功能，不过官方建议推荐在服务端的时候使用，客户端不推荐！
+
+> getImage() [relies on server-only APIs and breaks the build when used on the client](https://docs.astro.build/en/reference/modules/astro-assets/#getimage)
+
+在Image组件和picute组件内部更改的其实比较简单，无非就是判断当前模式是否开启了实验性responsive功能并通过applyResonsiveAttributes函数来输出实验性功能所需的属性方法。
+
+<ImageTip>
+  <Picture
+    src={image06}
+    alt={"picture components"}
+    formats={["avif", "webp"]}
+    slot={"image"}
+    class={"c-image"}
+  />
+  <span slot={'tip'}></span>
+</ImageTip>
+
+
+```ts 
+import { isRemotePath } from '@astrojs/internal-helpers/path';
+import { AstroError, AstroErrorData } from '../core/errors/index.js';
+import type { AstroConfig } from '../types/public/config.js';
+import { DEFAULT_HASH_PROPS } from './consts.js';
+import {
+	DEFAULT_RESOLUTIONS,
+	LIMITED_RESOLUTIONS,
+	getSizesAttribute,
+	getWidths,
+} from './layout.js';
+import { type ImageService, isLocalService } from './services/service.js';
+import {
+	type GetImageResult,
+	type ImageTransform,
+	type SrcSetValue,
+	type UnresolvedImageTransform,
+	isImageMetadata,
+} from './types.js';
+import { isESMImportedImage, isRemoteImage, resolveSrc } from './utils/imageKind.js';
+import { inferRemoteSize } from './utils/remoteProbe.js';
+
+export async function getConfiguredImageService(): Promise<ImageService> {
+	if (!globalThis?.astroAsset?.imageService) {
+		const { default: service }: { default: ImageService } = await import(
+			// @ts-expect-error
+			'virtual:image-service'
+		).catch((e) => {
+			const error = new AstroError(AstroErrorData.InvalidImageService);
+			error.cause = e;
+			throw error;
+		});
+
+		if (!globalThis.astroAsset) globalThis.astroAsset = {};
+		globalThis.astroAsset.imageService = service;
+		return service;
+	}
+
+	return globalThis.astroAsset.imageService;
+}
+
+type ImageConfig = AstroConfig['image'] & {
+	experimentalResponsiveImages: boolean;
+};
+
+export async function getImage(
+	options: UnresolvedImageTransform,
+	imageConfig: ImageConfig,
+): Promise<GetImageResult> {
+
+  // 这里参数作为如果不合法就return   简化
+  if (xxx) {
+  return ///
+  }
+
+  // 2.执行服务器解析图片地址
+	const service = await getConfiguredImageService();
+
+	// If the user inlined an import, something fairly common especially in MDX, or passed a function that returns an Image, await it for them
+	const resolvedOptions: ImageTransform = {
+		...options,
+		src: await resolveSrc(options.src),
+	};
+
+	let originalWidth: number | undefined;
+	let originalHeight: number | undefined;
+	let originalFormat: string | undefined;
+
+	// Infer size for remote images if inferSize is true
+	if (
+		options.inferSize &&
+		isRemoteImage(resolvedOptions.src) &&
+		isRemotePath(resolvedOptions.src)
+	) {
+		const result = await inferRemoteSize(resolvedOptions.src); // Directly probe the image URL
+		resolvedOptions.width ??= result.width;
+		resolvedOptions.height ??= result.height;
+		originalWidth = result.width;
+		originalHeight = result.height;
+		originalFormat = result.format;
+		delete resolvedOptions.inferSize; // Delete so it doesn't end up in the attributes
+	}
+
+	const originalFilePath = isESMImportedImage(resolvedOptions.src)
+		? resolvedOptions.src.fsPath
+		: undefined; // Only set for ESM imports, where we do have a file path
+
+	// Clone the `src` object if it's an ESM import so that we don't refer to any properties of the original object
+	// Causing our generate step to think the image is used outside of the image optimization pipeline
+	const clonedSrc = isESMImportedImage(resolvedOptions.src)
+		? // @ts-expect-error - clone is a private, hidden prop
+			(resolvedOptions.src.clone ?? resolvedOptions.src)
+		: resolvedOptions.src;
+
+	if (isESMImportedImage(clonedSrc)) {
+		originalWidth = clonedSrc.width;
+		originalHeight = clonedSrc.height;
+		originalFormat = clonedSrc.format;
+	}
+
+	if (originalWidth && originalHeight) {
+		// Calculate any missing dimensions from the aspect ratio, if available
+		const aspectRatio = originalWidth / originalHeight;
+		if (resolvedOptions.height && !resolvedOptions.width) {
+			resolvedOptions.width = Math.round(resolvedOptions.height * aspectRatio);
+		} else if (resolvedOptions.width && !resolvedOptions.height) {
+			resolvedOptions.height = Math.round(resolvedOptions.width / aspectRatio);
+		} else if (!resolvedOptions.width && !resolvedOptions.height) {
+			resolvedOptions.width = originalWidth;
+			resolvedOptions.height = originalHeight;
+		}
+	}
+	resolvedOptions.src = clonedSrc;
+
+	const layout = options.layout ?? imageConfig.experimentalLayout;
+
+	if (imageConfig.experimentalResponsiveImages && layout) {
+		resolvedOptions.widths ||= getWidths({
+			width: resolvedOptions.width,
+			layout,
+			originalWidth,
+			breakpoints: imageConfig.experimentalBreakpoints?.length
+				? imageConfig.experimentalBreakpoints
+				: isLocalService(service)
+					? LIMITED_RESOLUTIONS
+					: DEFAULT_RESOLUTIONS,
+		});
+		resolvedOptions.sizes ||= getSizesAttribute({ width: resolvedOptions.width, layout });
+
+		if (resolvedOptions.priority) {
+			resolvedOptions.loading ??= 'eager';
+			resolvedOptions.decoding ??= 'sync';
+			resolvedOptions.fetchpriority ??= 'high';
+		} else {
+			resolvedOptions.loading ??= 'lazy';
+			resolvedOptions.decoding ??= 'async';
+			resolvedOptions.fetchpriority ??= 'auto';
+		}
+		delete resolvedOptions.priority;
+		delete resolvedOptions.densities;
+	}
+
+	const validatedOptions = service.validateOptions
+		? await service.validateOptions(resolvedOptions, imageConfig)
+		: resolvedOptions;
+
+	// Get all the options for the different srcSets
+	const srcSetTransforms = service.getSrcSet
+		? await service.getSrcSet(validatedOptions, imageConfig)
+		: [];
+
+	let imageURL = await service.getURL(validatedOptions, imageConfig);
+
+	const matchesOriginal = (transform: ImageTransform) =>
+		transform.width === originalWidth &&
+		transform.height === originalHeight &&
+		transform.format === originalFormat;
+
+	let srcSets: SrcSetValue[] = await Promise.all(
+		srcSetTransforms.map(async (srcSet) => {
+			return {
+				transform: srcSet.transform,
+				url: matchesOriginal(srcSet.transform)
+					? imageURL
+					: await service.getURL(srcSet.transform, imageConfig),
+				descriptor: srcSet.descriptor,
+				attributes: srcSet.attributes,
+			};
+		}),
+	);
+
+	if (
+		isLocalService(service) &&
+		globalThis.astroAsset.addStaticImage &&
+		!(isRemoteImage(validatedOptions.src) && imageURL === validatedOptions.src)
+	) {
+		const propsToHash = service.propertiesToHash ?? DEFAULT_HASH_PROPS;
+		imageURL = globalThis.astroAsset.addStaticImage(
+			validatedOptions,
+			propsToHash,
+			originalFilePath,
+		);
+		srcSets = srcSetTransforms.map((srcSet) => {
+			return {
+				transform: srcSet.transform,
+				url: matchesOriginal(srcSet.transform)
+					? imageURL
+					: globalThis.astroAsset.addStaticImage!(srcSet.transform, propsToHash, originalFilePath),
+				descriptor: srcSet.descriptor,
+				attributes: srcSet.attributes,
+			};
+		});
+	}
+
+	return {
+		rawOptions: resolvedOptions,
+		options: validatedOptions,
+		src: imageURL,
+		srcSet: {
+			values: srcSets,
+			attribute: srcSets.map((srcSet) => `${srcSet.url} ${srcSet.descriptor}`).join(', '),
+		},
+		attributes:
+			service.getHTMLAttributes !== undefined
+				? await service.getHTMLAttributes(validatedOptions, imageConfig)
+				: {},
+	};
+}
+
+```
+
+首先，该函数会执行 getConfiguredImageService 函数，以判断用户是否配置了图像服务。如果没有配置，它会尝试动态导入一个默认服务，Astro 默认使用的图像服务是 sharp。
+
+如果启用了实验性功能，系统将通过图像服务计算不同分辨率和尺寸的 srcset，然后进行校验，最终输出 URL 和属性。总体来说，代码结构简单明了。
+
+# 总结
+
+虽然早期的 Astro 已经具备了一定的处理逻辑，但效果并不理想，每个响应式属性都需要手动添加，十分繁琐。现在，通过简单的配置信息即可实现全面且出色的响应式图像处理。
+
+此外，作者提到未来将考虑完善图像占位符功能，让人非常期待！👍👍
+
+# 参考
+
++ github discussions：https://github.com/withastro/roadmap/discussions/1031
+
++ github issues:：https://github.com/withastro/roadmap/issues/1042
+
++ RFC：https://github.com/withastro/roadmap/blob/responsive-images/proposals/0053-responsive-images.md
+
++ astro.docs： https://docs.astro.build/zh-cn/reference/modules/astro-assets/#getimag
