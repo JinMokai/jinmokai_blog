@@ -1,0 +1,25 @@
+---
+import PostsLayout from '@src/layout/postsLayout.astro'
+import TextLink from '@src/components/widgets/text-link.astro'
+---
+
+<PostsLayout>
+    <main class="max-w-[90%] md:max-w-[75ch] mx-auto">
+        <h1 class="mb-4 from-neutral-700 text-2xl">📆明年计划</h1>
+        <ul class="list-disc">
+            <li>学习一门外语在<TextLink text='多邻国' link='https://www.duolingo.com/'/>，目前学习英语中！</li>
+            <li>学一门乐器，吉他🎸？不错的选择！</li>
+            <li>无障碍学习、w3c文档翻译中，既能学习英语又能学习无障碍，两全的选择！</li>
+        </ul>
+    </main>
+</PostsLayout>
+
+<style>
+.list-disc {
+    list-style: disc;
+}
+.list-disc li {
+    margin-bottom: 4px;
+    font-size: 20px;
+}
+</style>

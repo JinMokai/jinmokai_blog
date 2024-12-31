@@ -1,5 +1,9 @@
 export const homeTag = [
   {
+    name: '2025新年计划',
+    link: '/feature',
+  },
+  {
     name: '主页',
     link: '/',
   },

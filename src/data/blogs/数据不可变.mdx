@@ -1,0 +1,219 @@
+---
+title: "数据不可变"
+pubDate: "2024-12-31"
+updateDate: ""
+description: "数据不可变"
+author: "ch_kai"
+image:
+  url: ""
+  alt: ""
+tags: ["javascript"]
+draft: false
+---
+
+# 数据不可变
+
+最近写了很多公司代码，发现每次如果定义一个变量且这个变量后续不会进行的时候每次都会这样定义。
+
+我这里就使用 vuejs 吧
+
+```vue
+<script>
+const defineViews = ref(["hello", "world"]);
+</script>
+```
+
+这样写也没错，但是不够语义，数据在执行过程中可能会存在被更改问题，但是这种情况很小但是我们的所要表达的意思就是该变量不能更改，书写逻辑更清晰的代码我想这是极好的！
+
+# 原生 js
+
+## Object.freeze()静态方法
+
+数据不可变，首先想到的是 Object.freeze 这个方法，可以冻结对象或数组，但是值得注意的是该方式是一个浅冻结，对象下面的对象可以再次被更改，如果希望对象里面什么都不能更改的话，可以写一个递归表示该对象不能更改
+
+```js
+function deepFreeze(object) {
+  // 获取对象的属性名
+  const propNames = Reflect.ownKeys(object);
+
+  // 冻结自身前先冻结属性
+  for (const name of propNames) {
+    const value = object[name];
+
+    if ((value && typeof value === "object") || typeof value === "function") {
+      deepFreeze(value);
+    }
+  }
+
+  return Object.freeze(object);
+}
+// 冻结对象后:
+// - 不能添加新属性
+// - 不能删除现有属性
+// - 不能修改属性值
+// - 不能修改属性特性
+```
+
+> 用例来自 MDN
+
+## Object.defineProperty()
+
+使用该语法进行配置 writable 为 false，configurable 也为 false
+
+```js
+const obj = {};
+Object.defineProperty(obj, "key", {
+  writable: false, // 不可写
+  configurable: false, // 不可配置
+  value: "value",
+  enumerable: true, // 可枚举
+});
+```
+
+## proxy
+
+使用 es6 新语法 proxy 来做拦截具体实现
+
+```js
+function createImmutableObject(target) {
+  const handler = {
+    // 拦截设置属性操作
+    set(target, property, value) {
+      console.warn(`Cannot set property '${property}': object is immutable`);
+      return false;
+    },
+
+    // 拦截删除属性操作
+    deleteProperty(target, property) {
+      console.warn(`Cannot delete property '${property}': object is immutable`);
+      return false;
+    },
+
+    // 拦截 Object.defineProperty
+    defineProperty(target, property, descriptor) {
+      console.warn(`Cannot define property '${property}': object is immutable`);
+      return false;
+    },
+
+    // 拦截 Object.setPrototypeOf
+    setPrototypeOf(target, prototype) {
+      console.warn('Cannot set prototype: object is immutable');
+      return false;
+    },
+
+    // 拦截属性描述符的修改
+    getOwnPropertyDescriptor(target, prop) {
+      const descriptor = Object.getOwnPropertyDescriptor(target, prop);
+      if (descriptor) {
+        descriptor.configurable = false;
+        descriptor.writable = false;
+      }
+      return descriptor;
+    },
+
+    // 防止扩展对象
+    preventExtensions(target) {
+      Object.preventExtensions(target);
+      return true;
+    },
+
+    // 检查对象是否可扩展
+    isExtensible(target) {
+      return false;
+    }
+  };
+
+  // 如果目标对象包含嵌套对象，递归处理
+  for (let key in target) {
+    if (typeof target[key] === 'object' && target[key] !== null) {
+      target[key] = createImmutableObject(target[key]);
+    }
+  }
+
+  // 创建代理
+  return new Proxy(target, handler);
+}
+
+// 使用示例
+const obj = {
+  name: 'John',
+  age: 30,
+  address: {
+    city: 'New York',
+    country: 'USA'
+  }
+};
+
+const immutableObj = createImmutableObject(obj);
+
+// 测试各种操作
+try {
+  // 尝试修改属性
+  immutableObj.name = 'Jane';  // 将被拦截
+
+  // 尝试删除属性
+  delete immutableObj.age;     // 将被拦截
+
+  // 尝试添加新属性
+  immutableObj.newProp = 'test';  // 将被拦截
+
+  // 尝试修改嵌套对象
+  immutableObj.address.city = 'Boston';  // 将被拦截
+
+  // 尝试通过 Object.defineProperty 添加属性
+  Object.defineProperty(immutableObj, 'test', {
+    value: 'test'
+  });  // 将被拦截
+
+  // 尝试修改原型
+  Object.setPrototypeOf(immutableObj, {});  // 将被拦截
+} catch (e) {
+  console.error(e);
+}
+
+// 查看对象内容
+console.log(immutableObj);
+
+通过proxy可以模拟Object.freeze()功能，createImmutableObject函数实现的是一个深度冻结逻辑，但是proxy相比Object.freeze性能会稍差。
+```
+
+在 vue 中存在一个 readonly 的语法表示该数据不可变，核心源码是
+
+```ts
+function defineReadonlyProperty(
+  proxy: any,
+  target: any,
+  key: string,
+  shallow: boolean
+) {
+  Object.defineProperty(proxy, key, {
+    enumerable: true,
+    configurable: true,
+    get() {
+      const val = target[key]
+      return shallow || !isPlainObject(val) ? val : readonly(val)
+    },
+    set() {
+      __DEV__ &&
+        warn(`Set operation on key "${key}" failed: target is readonly.`)
+    }
+  })
+}
+```
+
+> 需要注意的是 vue2 不支持数组，vue3 是支持的
+
+```ts
+if (!isPlainObject(target)) {
+  if (__DEV__) {
+    if (isArray(target)) {
+      warn(`Vue 2 does not support readonly arrays.`);
+    } else if (isCollectionType(target)) {
+      warn(`Vue 2 does not support readonly collection types such as Map or Set.`);
+    } else {
+      warn(`value cannot be made readonly: ${typeof target}`);
+    }
+  }
+  return target as any;
+}
+```
